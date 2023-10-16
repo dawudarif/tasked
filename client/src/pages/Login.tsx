@@ -1,8 +1,12 @@
-import { useLazyQuery, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import React, { useState, FormEvent } from 'react';
-import { LOGIN_USER } from '../graphql/User/mutations';
+import { LOGIN_USER, LOGOUT_USER } from '../graphql/User/mutations';
+import { Box, Input, Button } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+  const router = useNavigate();
+
   const [loginData, setLoginData] = useState({
     email: '',
     password: '',
@@ -15,9 +19,10 @@ const Login = () => {
         password: loginData.password,
       },
     },
+    onCompleted: () => {
+      router('/');
+    },
   });
-
-  console.log(data);
 
   const handleLoginInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLoginData({
@@ -33,25 +38,27 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <Box>
       <form onSubmit={handleLoginForm}>
-        <input
+        <Input
           type='email'
           name='email'
+          placeholder='example@exaple.com'
           value={loginData.email}
           onChange={handleLoginInputs}
         />
-        <input
+        <Input
           type='password'
           name='password'
+          placeholder='Password'
           value={loginData.password}
           onChange={handleLoginInputs}
         />
-        <button type='submit'>
+        <Button type='submit'>
           <p>Submit</p>
-        </button>
+        </Button>
       </form>
-    </div>
+    </Box>
   );
 };
 

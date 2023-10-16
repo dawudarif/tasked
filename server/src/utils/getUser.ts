@@ -15,12 +15,12 @@ export const getUser = async (cookie: string, prisma: PrismaClient) => {
       where: { id: decoded.userId },
       select: {
         id: true,
+        name: true,
         username: true,
         email: true,
-        createdAt: true,
-        updatedAt: true,
       },
     });
+
     return findUser;
   }
 };

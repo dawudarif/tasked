@@ -3,13 +3,18 @@ import { getUser } from '../../utils/getUser';
 import { generateToken } from '../../utils/generateToken';
 import {
   GraphQLContext,
+  IUserProfile,
   LoginUserArgs,
   RegisterUserArgs,
 } from '../../types/types';
 
 const resolvers = {
   Query: {
-    userProfile: async (_: any, args: any, context: GraphQLContext) => {
+    userProfile: async (
+      _: any,
+      args: any,
+      context: GraphQLContext,
+    ): Promise<IUserProfile> => {
       const { cookie, prisma } = context;
 
       try {
@@ -21,6 +26,7 @@ const resolvers = {
         if (!findUser) {
           throw new Error('User not found');
         }
+        console.log(findUser);
         return findUser;
       } catch (error: any) {
         throw new Error(error.message);
@@ -88,7 +94,7 @@ const resolvers = {
 
       return user;
     },
-    logoutUser: async (_: any, args: any, context: GraphQLContext) => {
+    logoutUser: async (_: any, __: any, context: GraphQLContext) => {
       const { res, cookie } = context;
 
       try {

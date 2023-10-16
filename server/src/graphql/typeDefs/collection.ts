@@ -19,7 +19,7 @@ const typeDefs = gql`
     name: String!
   }
 
-  type DeleteCollectionOutput {
+  type DeleteCollection {
     success: Boolean
     message: String
   }
@@ -31,7 +31,7 @@ const typeDefs = gql`
   type Mutation {
     createCollection(input: CreateCollectionInput): Collection!
     updateCollection(input: UpdateCollectionInput): Collection!
-    deleteCollection(input: ID): DeleteCollectionOutput!
+    deleteCollection(input: ID): DeleteCollection!
   }
 `;
 

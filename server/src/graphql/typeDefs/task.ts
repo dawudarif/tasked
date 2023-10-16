@@ -24,7 +24,7 @@ const typeDefs = gql`
     body: String
   }
 
-  type DeleteTaskOutput {
+  type DeleteTask {
     success: Boolean
     message: String
   }
@@ -36,7 +36,7 @@ const typeDefs = gql`
   type Mutation {
     createTask(input: CreateTaskInput): Task
     updateTask(input: UpdateTaskInput): Task
-    deleteTask(input: ID): DeleteTaskOutput
+    deleteTask(input: ID): DeleteTask
   }
 `;
 

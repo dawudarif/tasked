@@ -11,7 +11,8 @@ const typeDefs = gql`
     updatedAt: String!
   }
 
-  type UserProfileOutput {
+  type UserProfile {
+    id: ID!
     name: String!
     email: String!
     username: String!
@@ -29,19 +30,19 @@ const typeDefs = gql`
     password: String!
   }
 
-  type LogoutUserOutput {
+  type LogoutUser {
     success: Boolean
     message: String
   }
 
   type Query {
-    userProfile: UserProfileOutput
+    userProfile: UserProfile
   }
 
   type Mutation {
-    registerUser(input: RegisterUserInput): UserProfileOutput
-    loginUser(input: LoginUserInput): UserProfileOutput
-    logoutUser(input: LoginUserInput): LogoutUserOutput
+    registerUser(input: RegisterUserInput): UserProfile
+    loginUser(input: LoginUserInput): UserProfile
+    logoutUser: LogoutUser
   }
 `;
 

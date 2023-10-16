@@ -27,3 +27,10 @@ export interface UpdateTaskArgs {
   body: string;
   completed: boolean;
 }
+
+export interface IUserProfile {
+  id: string;
+  name: string;
+  email: string;
+  username: string;
+}
