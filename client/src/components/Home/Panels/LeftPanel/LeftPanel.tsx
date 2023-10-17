@@ -35,6 +35,7 @@ const LeftPanel: React.FC<LeftPanelProps> = ({ setSelected, selected }) => {
       minHeight={'100vh'}
       marginLeft='2rem'
       paddingY={8}
+      marginX={1}
       gap={1}
       background='white'
     >

@@ -14,6 +14,7 @@ const MainPanel: React.FC<MainPanelProps> = ({ selected }) => {
       minHeight='100vh'
       borderTopLeftRadius='2rem'
       backgroundColor='white'
+      paddingTop={4}
     >
       {selected === 'dashboard' && <Dashboard />}
       {selected === 'todo' && <Todo />}

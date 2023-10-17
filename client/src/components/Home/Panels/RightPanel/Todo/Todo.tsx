@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Today from '../../../../common/Today';
 import { Box, Flex, Heading, Text } from '@chakra-ui/react';
 import { AiOutlinePlus } from 'react-icons/ai';
@@ -8,30 +8,50 @@ import { useQuery } from '@apollo/client';
 import Loader from '../../../../Loader';
 import { ICollection } from '../../../../../util/types';
 import Collections from './Collections';
+import TasksInCollection from './TasksInCollection';
 
 type TodoProps = {};
 
 const Todo: React.FC<TodoProps> = () => {
   const { data, loading, error } = useQuery<ICollection>(GET_ALL_COLLECTIONS);
+  const [selected, setSelected] = useState('');
+
+  const handleSelect = (name: string) => {
+    setSelected(name);
+  };
 
   return (
     <Box
       background='brand.300'
-      borderTopLeftRadius='1rem'
+      borderTopLeftRadius='2rem'
       height='max-content'
       width='100%'
+      paddingTop={4}
     >
       <Today />
       <CreateCollectionButton />
       <Box>
         {loading ? (
-          <Loader size={50} />
+          <Flex
+            justifyContent='center'
+            alignItems='center'
+            width='100%'
+            height='10rem'
+          >
+            <Loader size={50} />
+          </Flex>
         ) : data && data.getAllCollections ? (
-          <Collections data={data} />
+          <Collections
+            data={data}
+            selected={selected}
+            setSelected={handleSelect}
+          />
         ) : (
           error && <Box>{error.message}</Box>
         )}
       </Box>
+
+      <TasksInCollection collectionId={selected} />
     </Box>
   );
 };

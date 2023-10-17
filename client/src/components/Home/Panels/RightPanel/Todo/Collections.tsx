@@ -6,37 +6,41 @@ import { MdOutlineCollectionsBookmark } from 'react-icons/md';
 
 interface CollectionsProps {
   data: ICollection;
+  selected: string;
+  setSelected: (name: string) => void;
 }
 
-const Collections: React.FC<CollectionsProps> = ({ data }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState('');
-
+const Collections: React.FC<CollectionsProps> = ({
+  data,
+  selected,
+  setSelected,
+}) => {
   const size = 30;
 
   return (
     <>
       <Box>
-        <Heading paddingX={8} fontSize='1.5rem'>
+        <Heading paddingX={8} fontSize='1.5rem' marginY={4}>
           All Collections
         </Heading>
         <Flex
           justifyContent='flex-start'
           alignItems='center'
-          gap={4}
+          gap={2}
           flexWrap='wrap'
+          paddingTop={4}
+          marginX={6}
         >
           {data.getAllCollections.map((item) => (
             <Flex
+              key={item.id}
               justifyContent='center'
               alignItems='center'
               gap={4}
               background='white'
               borderRadius='1.5rem'
-              marginX={6}
-              marginY={4}
-              paddingX={6}
-              paddingY={8}
+              paddingX={4}
+              paddingY={6}
               borderWidth='3px'
               borderColor={selected === item.id ? 'brand.100' : 'transparent'} // Added borderColor
               cursor='pointer'
@@ -50,14 +54,6 @@ const Collections: React.FC<CollectionsProps> = ({ data }) => {
           ))}
         </Flex>
       </Box>
-
-      {/* 
-                <button onClick={() => setIsOpen(true)}>create task</button> */}
-      {/* <CreateTaskModal
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-        collectionId={item.id}
-      /> */}
     </>
   );
 };

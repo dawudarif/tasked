@@ -31,14 +31,46 @@ const resolvers = {
         throw new Error(error.message);
       }
     },
+    allTasksInCollection: async (
+      _: any,
+      args: { input: { collectionId: string } },
+      context: GraphQLContext,
+    ) => {
+      const { cookie, prisma } = context;
+      const { collectionId } = args.input;
+
+      try {
+        const tokenCookie = cookie;
+        if (!tokenCookie) {
+          throw new Error('Not authenticated');
+        }
+
+        const findUser = await getUser(tokenCookie, prisma);
+        if (!findUser) {
+          throw new Error('User not found');
+        }
+
+        const allTasksInCollection = await prisma.task.findMany({
+          where: {
+            createdById: findUser.id,
+            collectionId,
+          },
+        });
+
+        return allTasksInCollection;
+      } catch (error: any) {
+        console.log('allTasksInCollection error', error);
+        throw new Error(error.message);
+      }
+    },
   },
   Mutation: {
     createTask: async (
-      parent: any,
+      _: any,
       args: CreateTaskArgs,
       context: GraphQLContext,
     ) => {
-      const { collectionId, createdById, body } = args.input;
+      const { collectionId, body } = args.input;
       const { cookie, prisma } = context;
 
       try {
@@ -47,18 +79,19 @@ const resolvers = {
           throw new Error('Not authenticated');
         }
         const findUser = await getUser(tokenCookie, prisma);
+
         if (!findUser) {
           throw new Error('User not found');
         }
 
-        if (collectionId || createdById || body) {
+        if (!collectionId || !body) {
           throw new Error('Necessary data not provided');
         }
 
         const createTask = await prisma.task.create({
           data: {
             collectionId,
-            createdById,
+            createdById: findUser.id,
             body,
           },
         });
@@ -70,7 +103,7 @@ const resolvers = {
       }
     },
     updateTask: async (
-      parent: any,
+      _: any,
       args: UpdateTaskArgs,
       context: GraphQLContext,
     ) => {

@@ -13,6 +13,8 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { CREATE_COLLECTION } from '../../graphql/Collection/mutations';
+import { CREATE_TASK } from '../../graphql/Task/mutations';
+import { ICreateTask, ICreateTaskArgs } from '../../util/types';
 
 interface CreateTaskModalProps {
   collectionId: string;
@@ -21,23 +23,28 @@ interface CreateTaskModalProps {
 }
 
 const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
+  collectionId,
   isOpen,
   onClose,
 }) => {
   const [text, setText] = useState('');
-  const [checked, setChecked] = useState(false);
-  console.log(checked);
 
-  const [createTask, { data, loading, error }] = useMutation(CREATE_COLLECTION);
+  const [createTask, { data, loading, error }] = useMutation<
+    ICreateTask,
+    ICreateTaskArgs
+  >(CREATE_TASK, {
+    variables: {
+      input: {
+        collectionId,
+        body: text,
+      },
+    },
+  });
 
   const handleCreateTask = () => {
-    createTask({
-      variables: {
-        input: {
-          name: text,
-        },
-      },
-    });
+    if (text === '' || collectionId === '') return;
+    createTask();
+    onClose();
   };
 
   const OverlayOne = () => (
@@ -53,7 +60,7 @@ const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
       <Modal isCentered isOpen={isOpen} onClose={onClose}>
         {overlay}
         <ModalContent>
-          <ModalHeader>Create Collection</ModalHeader>
+          <ModalHeader>Create Task</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Input
@@ -66,13 +73,10 @@ const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
               fontSize='1.1rem'
               borderColor='#5555'
             />
-            <Checkbox onChange={(e) => setChecked(!checked)}>
-              Completed
-            </Checkbox>
           </ModalBody>
           <ModalFooter>
             <Button onClick={handleCreateTask} background='brand.100'>
-              Create Collection
+              Create Task
             </Button>
           </ModalFooter>
         </ModalContent>

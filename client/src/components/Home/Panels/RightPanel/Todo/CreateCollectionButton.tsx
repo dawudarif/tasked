@@ -1,4 +1,4 @@
-import { Box, Flex, Heading } from '@chakra-ui/react';
+import { Box, Flex, Heading, Text } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 import CreateCollectionModal from '../../../../Modal/CreateCollectionModal';
@@ -18,10 +18,12 @@ const CreateCollectionButton: React.FC<CreateCollectionButtonProps> = () => {
         borderRadius='1.5rem'
         width='max-content'
         marginX={6}
-        paddingX={6}
-        paddingY={8}
+        paddingX={4}
+        paddingY={6}
       >
-        <Heading fontSize='1.5rem'>Create a new Collection</Heading>
+        <Text fontSize='1.5rem' fontWeight={700}>
+          Create a new Collection
+        </Text>
         <Box
           background='brand.100'
           borderRadius='50%'

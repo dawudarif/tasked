@@ -17,7 +17,7 @@ export interface RegisterUserArgs {
 }
 
 export interface CreateTaskArgs {
-  input: { collectionId: string; createdById: string; body: string };
+  input: { collectionId: string; body: string };
 }
 
 export interface UpdateTaskArgs {

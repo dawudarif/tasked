@@ -27,6 +27,7 @@ const CreateCollectionModal: React.FC<CreateCollectionModalProps> = ({
     useMutation(CREATE_COLLECTION);
 
   const handleCreateCollection = () => {
+    if (text === '') return;
     createCollection({
       variables: {
         input: {
@@ -34,6 +35,7 @@ const CreateCollectionModal: React.FC<CreateCollectionModalProps> = ({
         },
       },
     });
+    onClose();
   };
 
   const OverlayOne = () => (
