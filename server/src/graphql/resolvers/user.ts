@@ -12,7 +12,7 @@ const resolvers = {
   Query: {
     userProfile: async (
       _: any,
-      args: any,
+      __: any,
       context: GraphQLContext,
     ): Promise<IUserProfile> => {
       const { cookie, prisma } = context;
@@ -26,7 +26,6 @@ const resolvers = {
         if (!findUser) {
           throw new Error('User not found');
         }
-        console.log(findUser);
         return findUser;
       } catch (error: any) {
         throw new Error(error.message);

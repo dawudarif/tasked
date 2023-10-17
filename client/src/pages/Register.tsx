@@ -1,6 +1,8 @@
 import { useMutation } from '@apollo/client';
+import { Button, Heading, Input, Stack, Text } from '@chakra-ui/react';
 import React, { FormEvent, useState } from 'react';
-import { LOGIN_USER, REGISTER_USER } from '../graphql/User/mutations';
+import { REGISTER_USER } from '../graphql/User/mutations';
+import { Link } from 'react-router-dom';
 
 const Register = () => {
   const [registerData, setRegisterData] = useState({
@@ -10,16 +12,19 @@ const Register = () => {
     username: '',
   });
 
-  const [registerUser, { data, loading, error }] = useMutation(REGISTER_USER, {
-    variables: {
-      input: {
-        email: registerData.email,
-        password: registerData.password,
-        name: registerData.name,
-        username: registerData.username,
+  const [registerUser, { data, loading: registerLoading, error }] = useMutation(
+    REGISTER_USER,
+    {
+      variables: {
+        input: {
+          email: registerData.email,
+          password: registerData.password,
+          name: registerData.name,
+          username: registerData.username,
+        },
       },
     },
-  });
+  );
 
   console.log(data);
 
@@ -37,37 +42,90 @@ const Register = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleRegisterForm}>
-        <input
-          type='name'
-          name='name'
-          value={registerData.name}
-          onChange={handleLoginInputs}
-        />
-        <input
-          type='username'
-          name='username'
-          value={registerData.username}
-          onChange={handleLoginInputs}
-        />
-        <input
-          type='email'
-          name='email'
-          value={registerData.email}
-          onChange={handleLoginInputs}
-        />
-        <input
-          type='password'
-          name='password'
-          value={registerData.password}
-          onChange={handleLoginInputs}
-        />
-        <button type='submit'>
-          <p>Submit</p>
-        </button>
-      </form>
-    </div>
+    <Stack
+      width='100%'
+      minHeight='80vh'
+      justifyContent='center'
+      alignItems='center'
+      gap={8}
+    >
+      <Stack justifyContent='center' alignItems='center' width='30%' gap={6}>
+        <Heading opacity={0.8}>Register</Heading>
+        <form onSubmit={handleRegisterForm}>
+          <Input
+            type='name'
+            name='name'
+            placeholder='Name'
+            marginY={2}
+            width='100%'
+            border='2px solid #5555'
+            paddingY={6}
+            fontSize='1.1em'
+            value={registerData.name}
+            onChange={handleLoginInputs}
+          />
+          <Input
+            type='username'
+            name='username'
+            placeholder='@username'
+            marginY={2}
+            width='100%'
+            border='2px solid #5555'
+            paddingY={6}
+            fontSize='1.1em'
+            value={registerData.username}
+            onChange={handleLoginInputs}
+          />
+          <Input
+            type='email'
+            name='email'
+            placeholder='example@example.com'
+            marginY={2}
+            width='100%'
+            border='2px solid #5555'
+            paddingY={6}
+            fontSize='1.1em'
+            value={registerData.email}
+            onChange={handleLoginInputs}
+          />
+          <Input
+            type='password'
+            name='password'
+            placeholder='password'
+            marginY={2}
+            width='100%'
+            border='2px solid #5555'
+            paddingY={6}
+            fontSize='1.1em'
+            value={registerData.password}
+            onChange={handleLoginInputs}
+          />
+          <Button
+            type='submit'
+            isLoading={registerLoading}
+            width='100%'
+            paddingY={6}
+            marginY={2}
+            fontWeight={600}
+            fontSize='1.1em'
+            background='brand.100'
+            transition='all .5s'
+          >
+            <p>Submit</p>
+          </Button>
+          <Link to='/login'>
+            <Text
+              color='blue.700'
+              textDecoration='underline'
+              fontSize='1.2rem'
+              textAlign='center'
+            >
+              Login here.
+            </Text>
+          </Link>
+        </form>
+      </Stack>
+    </Stack>
   );
 };
 

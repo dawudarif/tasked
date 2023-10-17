@@ -5,17 +5,22 @@ import Home from './pages/Home';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import { useState } from 'react';
+import { IUserProfile } from './util/types';
+import { useQuery } from '@apollo/client';
+import { GET_USER_PROFILE } from './graphql/User/queries';
 
 function App() {
-  const [name, setName] = useState<string>('');
-
-  const updateName = (name: string) => setName(name);
+  const { data, loading, error } = useQuery<IUserProfile>(GET_USER_PROFILE);
 
   return (
     <>
-      <Header name={name} updateName={updateName} />
+      <Header name={data?.userProfile.name} />
       <Routes>
-        <Route index path='/' element={<Home updateName={updateName} />} />
+        <Route
+          index
+          path='/'
+          element={<Home data={data} loading={loading} error={error} />}
+        />
         <Route index path='/register' element={<Register />} />
         <Route index path='/login' element={<Login />} />
       </Routes>

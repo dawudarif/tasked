@@ -6,3 +6,9 @@ export interface IUserProfile {
     name: string;
   };
 }
+
+export interface IPanelItem {
+  id: number;
+  name: string;
+  icon: JSX.Element;
+}

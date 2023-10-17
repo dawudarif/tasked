@@ -1,30 +1,20 @@
-import { useLazyQuery, useMutation } from '@apollo/client';
-import logo from '../assets/logo.png';
+import { useMutation } from '@apollo/client';
 import {
-  Flex,
-  Image,
-  Text,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverHeader,
-  PopoverBody,
-  PopoverFooter,
-  PopoverArrow,
-  PopoverCloseButton,
-  PopoverAnchor,
-  Button,
-  Stack,
   Box,
+  Flex,
+  Heading,
+  Popover,
+  PopoverBody,
+  PopoverContent,
+  PopoverTrigger,
+  Stack,
+  Text,
 } from '@chakra-ui/react';
-import { LOGOUT_USER } from '../graphql/User/mutations';
-import { GET_USER_PROFILE } from '../graphql/User/queries';
-import { IUserProfile } from '../util/types';
 import { useNavigate } from 'react-router-dom';
+import { LOGOUT_USER } from '../graphql/User/mutations';
 
 interface IHeader {
   name?: string;
-  updateName: (name: string) => void;
 }
 
 const Header: React.FC<IHeader> = ({ name }) => {
@@ -40,14 +30,24 @@ const Header: React.FC<IHeader> = ({ name }) => {
 
   return (
     <Flex
-      justifyContent={'space-between'}
-      alignItems={'center'}
-      height={'4rem'}
-      paddingX={'3rem'}
-      paddingY={'1rem'}
+      justifyContent='space-between'
+      alignItems='center'
+      height='4rem'
+      paddingX='3rem'
+      paddingY='1rem'
       background='white'
     >
-      <Image src={logo} alt='logo' height={'3rem'} />
+      <Flex
+        justifyContent='center'
+        alignItems='center'
+        color='black'
+        opacity={0.9}
+      >
+        <Heading fontSize='1.8rem'>TASK</Heading>
+        <Heading color='brand.100' fontSize='1.8rem'>
+          ED.
+        </Heading>
+      </Flex>
       <Popover>
         <PopoverTrigger>
           <Text

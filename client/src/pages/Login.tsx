@@ -1,8 +1,8 @@
 import { useMutation } from '@apollo/client';
-import React, { useState, FormEvent } from 'react';
-import { LOGIN_USER, LOGOUT_USER } from '../graphql/User/mutations';
-import { Box, Input, Button } from '@chakra-ui/react';
-import { useNavigate } from 'react-router-dom';
+import { Button, Heading, Input, Stack, Text } from '@chakra-ui/react';
+import React, { FormEvent, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { LOGIN_USER } from '../graphql/User/mutations';
 
 const Login = () => {
   const router = useNavigate();
@@ -12,17 +12,20 @@ const Login = () => {
     password: '',
   });
 
-  const [loginUser, { data, loading, error }] = useMutation(LOGIN_USER, {
-    variables: {
-      input: {
-        email: loginData.email,
-        password: loginData.password,
+  const [loginUser, { data, loading: loginLoading, error }] = useMutation(
+    LOGIN_USER,
+    {
+      variables: {
+        input: {
+          email: loginData.email,
+          password: loginData.password,
+        },
+      },
+      onCompleted: () => {
+        router('/');
       },
     },
-    onCompleted: () => {
-      router('/');
-    },
-  });
+  );
 
   const handleLoginInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLoginData({
@@ -38,27 +41,66 @@ const Login = () => {
   };
 
   return (
-    <Box>
-      <form onSubmit={handleLoginForm}>
-        <Input
-          type='email'
-          name='email'
-          placeholder='example@exaple.com'
-          value={loginData.email}
-          onChange={handleLoginInputs}
-        />
-        <Input
-          type='password'
-          name='password'
-          placeholder='Password'
-          value={loginData.password}
-          onChange={handleLoginInputs}
-        />
-        <Button type='submit'>
-          <p>Submit</p>
-        </Button>
-      </form>
-    </Box>
+    <Stack
+      width='100%'
+      minHeight='80vh'
+      justifyContent='center'
+      alignItems='center'
+      gap={8}
+    >
+      <Stack justifyContent='center' alignItems='center' width='30%' gap={6}>
+        <Heading opacity={0.8}>LOGIN</Heading>
+        <form onSubmit={handleLoginForm}>
+          <Input
+            type='email'
+            name='email'
+            placeholder='example@example.com'
+            marginY={2}
+            width='100%'
+            border='2px solid #5555'
+            paddingY={6}
+            fontSize='1.1em'
+            value={loginData.email}
+            onChange={handleLoginInputs}
+          />
+          <Input
+            type='password'
+            name='password'
+            placeholder='Password'
+            marginY={2}
+            width='100%'
+            border='2px solid #5555'
+            paddingY={6}
+            fontSize='1.1em'
+            value={loginData.password}
+            onChange={handleLoginInputs}
+          />
+          <Button
+            type='submit'
+            isLoading={loginLoading}
+            width='100%'
+            paddingY={6}
+            marginY={2}
+            fontWeight={600}
+            fontSize='1.1em'
+            background='brand.100'
+            transition='all .5s'
+          >
+            <p>Submit</p>
+          </Button>
+          <Link to='/register'>
+            <Text
+              color='blue.700'
+              textDecoration='underline'
+              fontSize='1.2rem'
+              textAlign='center'
+            >
+              Not a user? Register here.
+            </Text>
+          </Link>
+        </form>
+      </Stack>
+    </Stack>
   );
 };
 

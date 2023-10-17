@@ -1,12 +1,18 @@
-import React from 'react';
-import LeftPanel from '../Panels/LeftPanel';
-import MainPanel from '../Panels/MainPanel';
+import LeftPanel from './Panels/LeftPanel/LeftPanel';
+import MainPanel from './Panels/MainPanel';
+import { useState } from 'react';
 
 const HomeWrapper = () => {
+  const [selected, setSelected] = useState('');
+
+  const handleSelect = (name: string) => {
+    setSelected(name);
+  };
+
   return (
     <>
-      <LeftPanel />
-      <MainPanel />
+      <LeftPanel setSelected={handleSelect} selected={selected} />
+      <MainPanel selected={selected} />
     </>
   );
 };
