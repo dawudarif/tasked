@@ -38,7 +38,7 @@ const resolvers = {
       args: CreateTaskArgs,
       context: GraphQLContext,
     ) => {
-      const { collectionId, createdById, body } = args;
+      const { collectionId, createdById, body } = args.input;
       const { cookie, prisma } = context;
 
       try {

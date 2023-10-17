@@ -6,6 +6,7 @@ import Loader from '../components/Loader';
 import Login from './Login';
 import HomeWrapper from '../components/Home/HomeWrapper';
 import { IUserProfile } from '../util/types';
+import { Box } from '@chakra-ui/react';
 
 interface IHome {
   data?: IUserProfile;
@@ -17,7 +18,7 @@ const Home: React.FC<IHome> = ({ data, loading, error }) => {
   if (error) return <div>An Error occurred</div>;
 
   return (
-    <main className='home'>
+    <Box background='white'>
       {loading ? (
         <Loader size={100} />
       ) : data?.userProfile.id ? (
@@ -25,7 +26,7 @@ const Home: React.FC<IHome> = ({ data, loading, error }) => {
       ) : (
         <Login />
       )}
-    </main>
+    </Box>
   );
 };
 

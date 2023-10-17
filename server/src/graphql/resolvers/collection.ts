@@ -3,11 +3,7 @@ import { getUser } from '../../utils/getUser';
 
 const resolvers = {
   Query: {
-    getAllCollections: async (
-      parent: any,
-      args: any,
-      context: GraphQLContext,
-    ) => {
+    getAllCollections: async (_: any, __: any, context: GraphQLContext) => {
       const { cookie, prisma } = context;
 
       try {
@@ -40,7 +36,6 @@ const resolvers = {
     ) => {
       const { cookie, prisma } = context;
       const { name } = args.input;
-      console.log(name);
 
       try {
         const tokenCookie = cookie;

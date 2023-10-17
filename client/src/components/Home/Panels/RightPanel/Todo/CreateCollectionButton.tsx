@@ -1,7 +1,7 @@
 import { Box, Flex, Heading } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
-import CreateCollectionModal from '../../../../Modal/createCollectionModal';
+import CreateCollectionModal from '../../../../Modal/CreateCollectionModal';
 
 type CreateCollectionButtonProps = {};
 

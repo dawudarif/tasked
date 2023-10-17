@@ -12,3 +12,13 @@ export interface IPanelItem {
   name: string;
   icon: JSX.Element;
 }
+
+interface ICollectionItem {
+  id: string;
+  name: string;
+  updatedAt: string;
+  createdAt: string;
+}
+export interface ICollection {
+  getAllCollections: Array<ICollectionItem>;
+}

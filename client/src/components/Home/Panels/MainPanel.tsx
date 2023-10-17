@@ -11,9 +11,9 @@ const MainPanel: React.FC<MainPanelProps> = ({ selected }) => {
   return (
     <Box
       width={{ lg: '80%' }}
-      minHeight={'100vh'}
-      border={'2px'}
-      borderColor={'yellow'}
+      minHeight='100vh'
+      borderTopLeftRadius='2rem'
+      backgroundColor='white'
     >
       {selected === 'dashboard' && <Dashboard />}
       {selected === 'todo' && <Todo />}

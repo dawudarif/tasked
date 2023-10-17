@@ -9,7 +9,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
   return (
     <Box
       background='brand.300'
-      borderTopLeftRadius='1rem'
+      borderTopLeftRadius='2rem'
       border='2px'
       borderColor='red'
       height='100%'
