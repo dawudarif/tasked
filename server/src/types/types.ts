@@ -34,3 +34,9 @@ export interface IUserProfile {
   email: string;
   username: string;
 }
+
+export interface ICreateCollectionArgs {
+  input: {
+    name: string;
+  };
+}

@@ -1,4 +1,4 @@
-import { GraphQLContext } from '../../types/types';
+import { GraphQLContext, ICreateCollectionArgs } from '../../types/types';
 import { getUser } from '../../utils/getUser';
 
 const resolvers = {
@@ -35,11 +35,12 @@ const resolvers = {
   Mutation: {
     createCollection: async (
       parent: any,
-      args: { name: string },
+      args: ICreateCollectionArgs,
       context: GraphQLContext,
     ) => {
       const { cookie, prisma } = context;
-      const { name } = args;
+      const { name } = args.input;
+      console.log(name);
 
       try {
         const tokenCookie = cookie;

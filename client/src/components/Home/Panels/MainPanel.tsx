@@ -1,5 +1,7 @@
 import { Box } from '@chakra-ui/react';
-import Dashboard from './Dashboard';
+import Dashboard from './RightPanel/Dashboard/Dashboard';
+import Todo from './RightPanel/Todo/Todo';
+import TimeSheets from './RightPanel/TimeSheets/TimeSheets';
 
 type MainPanelProps = {
   selected: string;
@@ -14,6 +16,8 @@ const MainPanel: React.FC<MainPanelProps> = ({ selected }) => {
       borderColor={'yellow'}
     >
       {selected === 'dashboard' && <Dashboard />}
+      {selected === 'todo' && <Todo />}
+      {selected === 'timesheets' && <TimeSheets />}
     </Box>
   );
 };

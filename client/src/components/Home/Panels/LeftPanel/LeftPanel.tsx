@@ -36,6 +36,7 @@ const LeftPanel: React.FC<LeftPanelProps> = ({ setSelected, selected }) => {
       marginLeft='2rem'
       paddingY={8}
       gap={1}
+      background='white'
     >
       {panelItems.map((item) => (
         <SingleItem

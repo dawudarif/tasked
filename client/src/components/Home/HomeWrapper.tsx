@@ -3,7 +3,7 @@ import MainPanel from './Panels/MainPanel';
 import { useState } from 'react';
 
 const HomeWrapper = () => {
-  const [selected, setSelected] = useState('');
+  const [selected, setSelected] = useState('dashboard');
 
   const handleSelect = (name: string) => {
     setSelected(name);
