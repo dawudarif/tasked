@@ -36,5 +36,7 @@ export interface IUserProfile {
 export interface ICreateCollectionArgs {
   input: {
     name: string;
+    color: string;
+    icon: number;
   };
 }

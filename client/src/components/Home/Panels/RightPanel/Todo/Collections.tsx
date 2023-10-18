@@ -3,11 +3,12 @@ import { ICollection } from '../../../../../util/types';
 import { useState } from 'react';
 import CreateTaskModal from '../../../../Modal/CreateTaskModal';
 import { MdOutlineCollectionsBookmark } from 'react-icons/md';
+import { collectionIcons } from '../../../../../data/icons';
 
 interface CollectionsProps {
   data: ICollection;
   selected: string;
-  setSelected: (name: string) => void;
+  setSelected: (collectionId: string, collectionName: string) => void;
 }
 
 const Collections: React.FC<CollectionsProps> = ({
@@ -42,14 +43,17 @@ const Collections: React.FC<CollectionsProps> = ({
               paddingX={4}
               paddingY={6}
               borderWidth='3px'
-              borderColor={selected === item.id ? 'brand.100' : 'transparent'} // Added borderColor
+              borderColor={selected === item.id ? item.color : 'transparent'}
               cursor='pointer'
-              onClick={() => setSelected(item.id)}
+              shadow='md'
+              onClick={() => setSelected(item.id, item.name)}
             >
               <Text fontSize='1.2rem' fontWeight={600}>
                 {item.name}
               </Text>
-              <MdOutlineCollectionsBookmark size={size} color='#fabb18' />
+              <Box color={item.color} height={8} width={8}>
+                {collectionIcons[item.icon].icon}
+              </Box>
             </Flex>
           ))}
         </Flex>

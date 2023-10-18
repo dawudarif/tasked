@@ -16,6 +16,8 @@ export interface IPanelItem {
 interface ICollectionItem {
   id: string;
   name: string;
+  color: string;
+  icon: number;
   updatedAt: string;
   createdAt: string;
 }

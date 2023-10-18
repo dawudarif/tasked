@@ -25,6 +25,8 @@ model Collection {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   task        Task[]
+  color       String
+  icon        Int
   createdBy   User     @relation(fields: [createdById], references: [id])
   createdById String   @db.ObjectId
   createdAt   DateTime @default(now())

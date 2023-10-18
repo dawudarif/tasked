@@ -30,12 +30,12 @@ const resolvers = {
   },
   Mutation: {
     createCollection: async (
-      parent: any,
+      _: any,
       args: ICreateCollectionArgs,
       context: GraphQLContext,
     ) => {
       const { cookie, prisma } = context;
-      const { name } = args.input;
+      const { name, color, icon } = args.input;
 
       try {
         const tokenCookie = cookie;
@@ -56,6 +56,8 @@ const resolvers = {
           data: {
             createdById: findUser.id,
             name,
+            color,
+            icon,
           },
         });
 
@@ -66,7 +68,7 @@ const resolvers = {
       }
     },
     updateCollection: async (
-      parent: any,
+      _: any,
       args: { id: string; name: string },
       context: GraphQLContext,
     ) => {

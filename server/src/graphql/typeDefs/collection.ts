@@ -4,6 +4,8 @@ const typeDefs = gql`
   type Collection {
     id: ID!
     name: String!
+    color: String!
+    icon: Int!
     tasks: [Task]
     createdBy: User!
     createdAt: String!
@@ -12,6 +14,8 @@ const typeDefs = gql`
 
   input CreateCollectionInput {
     name: String!
+    color: String!
+    icon: Int!
   }
 
   input UpdateCollectionInput {

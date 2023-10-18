@@ -5,6 +5,8 @@ export const GET_ALL_COLLECTIONS = gql`
     getAllCollections {
       id
       name
+      color
+      icon
       updatedAt
       createdAt
     }

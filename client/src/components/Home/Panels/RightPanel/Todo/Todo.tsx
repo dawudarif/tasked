@@ -15,16 +15,19 @@ type TodoProps = {};
 const Todo: React.FC<TodoProps> = () => {
   const { data, loading, error } = useQuery<ICollection>(GET_ALL_COLLECTIONS);
   const [selected, setSelected] = useState('');
+  const [collectionName, setCollectionName] = useState('');
 
-  const handleSelect = (name: string) => {
-    setSelected(name);
+  const handleSelect = (collectionId: string, collectionName: string) => {
+    setSelected(collectionId);
+    setCollectionName(collectionName);
   };
 
   return (
     <Box
       background='brand.300'
       borderTopLeftRadius='2rem'
-      height='max-content'
+      minHeight='100vh'
+      height='max-context'
       width='100%'
       paddingTop={4}
     >
@@ -51,7 +54,10 @@ const Todo: React.FC<TodoProps> = () => {
         )}
       </Box>
 
-      <TasksInCollection collectionId={selected} />
+      <TasksInCollection
+        collectionId={selected}
+        collectionName={collectionName}
+      />
     </Box>
   );
 };
