@@ -6,6 +6,7 @@ import CreateTaskModal from '../../../../Modal/CreateTaskModal';
 import { IGetTaskArgs, IGetTasks } from '../../../../../util/types';
 import Loader from '../../../../Loader';
 import { AiOutlinePlus } from 'react-icons/ai';
+import SingleTask from './SingleTask';
 
 interface TasksInCollectionProps {
   collectionId: string;
@@ -17,16 +18,16 @@ const TasksInCollection: React.FC<TasksInCollectionProps> = ({
   collectionName,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [getTasks, { loading, data, error }] = useLazyQuery<
-    IGetTasks,
-    IGetTaskArgs
-  >(TASKS_IN_COLLECTION, {
-    variables: {
-      input: {
-        collectionId,
+  const [getTasks, { loading, data }] = useLazyQuery<IGetTasks, IGetTaskArgs>(
+    TASKS_IN_COLLECTION,
+    {
+      variables: {
+        input: {
+          collectionId,
+        },
       },
     },
-  });
+  );
 
   useEffect(() => {
     if (collectionId === '') return;
@@ -78,24 +79,16 @@ const TasksInCollection: React.FC<TasksInCollectionProps> = ({
             width='100%'
             marginY={8}
             rounded='lg'
+            border='2px'
+            borderColor='#5555'
           >
             {data?.allTasksInCollection.map((item, i) => (
-              <Flex
+              <SingleTask
+                item={item}
                 key={item.id}
-                borderBottom={
-                  data.allTasksInCollection.length - 1 === i ? 0 : '2px'
-                }
-                borderColor='#5555'
-                paddingX={4}
-                paddingY={2}
-                gap={4}
-                fontSize='1.1rem'
-                fontWeight={600}
-                width='100%'
-              >
-                <Checkbox checked={item.completed === true} />
-                <Text>{item.body}</Text>
-              </Flex>
+                length={data.allTasksInCollection.length}
+                itemIndex={i}
+              />
             ))}
           </Stack>
         ) : (

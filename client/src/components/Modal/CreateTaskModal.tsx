@@ -1,7 +1,6 @@
 import { useMutation } from '@apollo/client';
 import {
   Button,
-  Checkbox,
   Input,
   Modal,
   ModalBody,
@@ -12,10 +11,9 @@ import {
   ModalOverlay,
 } from '@chakra-ui/react';
 import { useState } from 'react';
-import { CREATE_COLLECTION } from '../../graphql/Collection/mutations';
 import { CREATE_TASK } from '../../graphql/Task/mutations';
-import { ICreateTask, ICreateTaskArgs } from '../../util/types';
 import { TASKS_IN_COLLECTION } from '../../graphql/Task/queries';
+import { ICreateTask, ICreateTaskArgs } from '../../util/types';
 
 interface CreateTaskModalProps {
   collectionId: string;
@@ -30,10 +28,7 @@ const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
 }) => {
   const [text, setText] = useState('');
 
-  const [createTask, { data, loading, error }] = useMutation<
-    ICreateTask,
-    ICreateTaskArgs
-  >(CREATE_TASK, {
+  const [createTask] = useMutation<ICreateTask, ICreateTaskArgs>(CREATE_TASK, {
     variables: {
       input: {
         collectionId,
@@ -82,6 +77,7 @@ const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
   const handleCreateTask = () => {
     if (text === '' || collectionId === '') return;
     createTask();
+    setText('');
     onClose();
   };
 
@@ -105,7 +101,12 @@ const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
             />
           </ModalBody>
           <ModalFooter>
-            <Button onClick={handleCreateTask} background='brand.100'>
+            <Button
+              onClick={handleCreateTask}
+              background='brand.100'
+              color='white'
+              _hover={{ color: 'black' }}
+            >
               Create Task
             </Button>
           </ModalFooter>

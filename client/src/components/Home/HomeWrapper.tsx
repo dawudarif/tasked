@@ -11,7 +11,7 @@ const HomeWrapper = () => {
   };
 
   return (
-    <Flex justifyContent='center' alignItems='center'>
+    <Flex justifyContent='center'>
       <LeftPanel setSelected={handleSelect} selected={selected} />
       <MainPanel selected={selected} />
     </Flex>

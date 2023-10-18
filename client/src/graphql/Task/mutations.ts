@@ -12,3 +12,25 @@ export const CREATE_TASK = gql`
     }
   }
 `;
+
+export const UPDATE_TASK = gql`
+  mutation Mutation($input: UpdateTaskInput) {
+    updateTask(input: $input) {
+      completed
+      id
+      createdAt
+      collectionId
+      body
+      updatedAt
+    }
+  }
+`;
+
+export const DELETE_TASK = gql`
+  mutation Mutation($input: ID) {
+    deleteTask(input: $input) {
+      message
+      success
+    }
+  }
+`;

@@ -75,6 +75,9 @@ const CreateCollectionModal: React.FC<CreateCollectionModalProps> = ({
   const handleCreateCollection = () => {
     if (text === '') return;
     createCollection();
+    setText('');
+    setColor('#ffd40c');
+    setIcon(1);
     onClose();
   };
 
@@ -141,7 +144,12 @@ const CreateCollectionModal: React.FC<CreateCollectionModalProps> = ({
             </Flex>
           </ModalBody>
           <ModalFooter>
-            <Button onClick={handleCreateCollection} background='brand.100'>
+            <Button
+              onClick={handleCreateCollection}
+              background='brand.100'
+              color='white'
+              _hover={{ color: 'black' }}
+            >
               Create Collection
             </Button>
           </ModalFooter>

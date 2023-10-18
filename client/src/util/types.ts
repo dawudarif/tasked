@@ -46,7 +46,7 @@ export interface ICreateTaskArgs {
   };
 }
 
-interface Task {
+export interface Task {
   body: string;
   completed: boolean;
   createdAt: string;

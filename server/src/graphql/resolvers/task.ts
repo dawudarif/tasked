@@ -107,7 +107,7 @@ const resolvers = {
       args: UpdateTaskArgs,
       context: GraphQLContext,
     ) => {
-      const { id, body, completed } = args;
+      const { id, body, completed } = args.input;
       const { cookie, prisma } = context;
 
       try {
@@ -133,12 +133,13 @@ const resolvers = {
       }
     },
     deleteTask: async (
-      parent: any,
-      args: { id: string },
+      _: any,
+      args: { input: string },
       context: GraphQLContext,
     ) => {
-      const { id } = args;
+      const taskId = args.input;
       const { cookie, prisma } = context;
+      console.log(taskId);
 
       try {
         const tokenCookie = cookie;
@@ -151,8 +152,8 @@ const resolvers = {
           throw new Error('User not found');
         }
 
-        const deleteTask = await prisma.task.delete({
-          where: { id },
+        await prisma.task.delete({
+          where: { id: taskId },
         });
 
         return {

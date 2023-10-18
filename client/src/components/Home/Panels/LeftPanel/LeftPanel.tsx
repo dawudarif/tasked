@@ -32,7 +32,8 @@ const LeftPanel: React.FC<LeftPanelProps> = ({ setSelected, selected }) => {
   return (
     <Stack
       width={{ lg: '20%' }}
-      minHeight={'100vh'}
+      minHeight='100vh'
+      height='auto'
       marginLeft='2rem'
       paddingY={8}
       marginX={1}

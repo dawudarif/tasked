@@ -21,9 +21,7 @@ export interface CreateTaskArgs {
 }
 
 export interface UpdateTaskArgs {
-  id: string;
-  body: string;
-  completed: boolean;
+  input: { id: string; body: string; completed: boolean };
 }
 
 export interface IUserProfile {

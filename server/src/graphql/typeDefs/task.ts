@@ -20,7 +20,7 @@ const typeDefs = gql`
 
   input UpdateTaskInput {
     id: ID
-    completed: String
+    completed: Boolean
     body: String
   }
 
