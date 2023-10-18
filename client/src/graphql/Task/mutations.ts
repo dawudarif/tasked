@@ -6,6 +6,7 @@ export const CREATE_TASK = gql`
       body
       completed
       createdAt
+      collectionId
       id
       updatedAt
     }

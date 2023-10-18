@@ -69,34 +69,42 @@ const TasksInCollection: React.FC<TasksInCollectionProps> = ({
           </Button>
         </Flex>
 
-        <Stack
-          background='white'
-          boxShadow='md'
-          justifyContent='center'
-          align='baseline'
-          width='100%'
-          marginY={8}
-          rounded='lg'
-        >
-          {data?.allTasksInCollection.map((item, i) => (
-            <Flex
-              key={item.id}
-              borderBottom={
-                data.allTasksInCollection.length - 1 === i ? 0 : '2px'
-              }
-              borderColor='#5555'
-              paddingX={4}
-              paddingY={2}
-              gap={4}
-              fontSize='1.1rem'
-              fontWeight={600}
-              width='100%'
-            >
-              <Checkbox checked={item.completed === true} />
-              <Text>{item.body}</Text>
-            </Flex>
-          ))}
-        </Stack>
+        {data?.allTasksInCollection.length > 0 ? (
+          <Stack
+            background='white'
+            boxShadow='md'
+            justifyContent='center'
+            align='baseline'
+            width='100%'
+            marginY={8}
+            rounded='lg'
+          >
+            {data?.allTasksInCollection.map((item, i) => (
+              <Flex
+                key={item.id}
+                borderBottom={
+                  data.allTasksInCollection.length - 1 === i ? 0 : '2px'
+                }
+                borderColor='#5555'
+                paddingX={4}
+                paddingY={2}
+                gap={4}
+                fontSize='1.1rem'
+                fontWeight={600}
+                width='100%'
+              >
+                <Checkbox checked={item.completed === true} />
+                <Text>{item.body}</Text>
+              </Flex>
+            ))}
+          </Stack>
+        ) : (
+          <Flex justifyContent='center' alignItems='center' height='20rem'>
+            <Text textDecorationStyle='double' fontSize='1.2rem'>
+              No Tasks in this collection, create new tasks to view here.
+            </Text>
+          </Flex>
+        )}
       </Stack>
       <CreateTaskModal
         isOpen={isOpen}

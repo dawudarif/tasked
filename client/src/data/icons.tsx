@@ -17,18 +17,18 @@ interface ICollectionIcon {
 }
 
 export const collectionIcons: Array<ICollectionIcon> = [
-  { id: 1, icon: <BsFillBookmarksFill size='inherit' /> },
   {
-    id: 2,
+    id: 1,
+    icon: <BsListUl size='inherit' />,
+  },
+  { id: 2, icon: <BsFillBookmarksFill size='inherit' /> },
+  {
+    id: 3,
     icon: <BsPinAngleFill size='inherit' />,
   },
   {
-    id: 3,
-    icon: <BiSolidCake size='inherit' />,
-  },
-  {
     id: 4,
-    icon: <BsListUl size='inherit' />,
+    icon: <BiSolidCake size='inherit' />,
   },
   {
     id: 5,

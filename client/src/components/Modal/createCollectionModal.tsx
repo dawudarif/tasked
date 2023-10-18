@@ -14,9 +14,11 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { useState } from 'react';
-import { CREATE_COLLECTION } from '../../graphql/Collection/mutations';
 import { colors } from '../../data/colors';
 import { collectionIcons } from '../../data/icons';
+import { CREATE_COLLECTION } from '../../graphql/Collection/mutations';
+import { GET_ALL_COLLECTIONS } from '../../graphql/Collection/queries';
+import { ICreateCollection, ICreateCollectionArgs } from '../../util/types';
 
 interface CreateCollectionModalProps {
   isOpen: boolean;
@@ -27,40 +29,59 @@ const CreateCollectionModal: React.FC<CreateCollectionModalProps> = ({
   isOpen,
   onClose,
 }) => {
-  const size = 30;
-
   const [text, setText] = useState('');
   const [color, setColor] = useState('#ffd40c');
-  const [icon, setIcon] = useState(4);
-  const [createCollection, { data, loading, error }] =
-    useMutation(CREATE_COLLECTION);
+  const [icon, setIcon] = useState(1);
+
+  const [createCollection] = useMutation<
+    ICreateCollection,
+    ICreateCollectionArgs
+  >(CREATE_COLLECTION, {
+    variables: {
+      input: {
+        name: text,
+        color,
+        icon,
+      },
+    },
+    optimisticResponse: {
+      __typename: 'Mutation',
+      createCollection: {
+        __typename: 'Collection',
+        id: `temp-id-${Math.random().toString(36).substr(2, 9)}`,
+        name: text,
+        color,
+        icon,
+        updatedAt: new Date().toISOString(),
+        createdAt: new Date().toISOString(),
+      },
+    } as any,
+    update: (cache, mutationResult) => {
+      const createCollection = mutationResult.data?.createCollection;
+      if (createCollection) {
+        const { getAllCollections } = cache.readQuery<any>({
+          query: GET_ALL_COLLECTIONS,
+        });
+        cache.writeQuery({
+          query: GET_ALL_COLLECTIONS,
+          data: {
+            getAllCollections: [...getAllCollections, createCollection],
+          },
+        });
+      }
+    },
+  });
 
   const handleCreateCollection = () => {
     if (text === '') return;
-    createCollection({
-      variables: {
-        input: {
-          name: text,
-          color,
-          icon,
-        },
-      },
-    });
+    createCollection();
     onClose();
   };
 
-  const OverlayOne = () => (
-    <ModalOverlay
-      bg='blackAlpha.300'
-      backdropFilter='blur(10px) hue-rotate(90deg)'
-    />
-  );
-  const [overlay, setOverlay] = useState(<OverlayOne />);
-
   return (
     <>
-      <Modal isCentered isOpen={isOpen} onClose={onClose}>
-        {overlay}
+      <Modal size='2xl' isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
         <ModalContent>
           <ModalHeader>Create Collection</ModalHeader>
           <ModalCloseButton />
@@ -108,7 +129,7 @@ const CreateCollectionModal: React.FC<CreateCollectionModalProps> = ({
                   borderRadius='50%'
                   _hover={{ background: 'blackAlpha.100' }}
                   border='2px'
-                  borderColor={icon === item.id ? 'black' : 'white'}
+                  borderColor={icon === item.id ? '#5555' : 'white'}
                   padding={3}
                   onClick={() => setIcon(item.id)}
                   height={14}
@@ -129,4 +150,5 @@ const CreateCollectionModal: React.FC<CreateCollectionModalProps> = ({
     </>
   );
 };
+
 export default CreateCollectionModal;

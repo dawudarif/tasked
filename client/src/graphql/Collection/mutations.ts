@@ -5,7 +5,8 @@ export const CREATE_COLLECTION = gql`
     createCollection(input: $input) {
       id
       name
-      updatedAt
+      icon
+      color
       createdAt
       updatedAt
     }

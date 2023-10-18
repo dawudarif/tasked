@@ -1,6 +1,7 @@
 import { useMutation } from '@apollo/client';
 import {
   Box,
+  Button,
   Flex,
   Heading,
   Popover,
@@ -28,6 +29,8 @@ const Header: React.FC<IHeader> = ({ name }) => {
     router('/login');
   };
 
+  console.log(nameInitials);
+
   return (
     <Flex
       justifyContent='space-between'
@@ -50,18 +53,20 @@ const Header: React.FC<IHeader> = ({ name }) => {
       </Flex>
       <Popover>
         <PopoverTrigger>
-          <Text
+          <Button
             borderRadius='50%'
             padding='.7rem'
             background='blackAlpha.800'
             fontSize='1.2rem'
             fontWeight='bold'
             color='white'
-            _hover={{ boxShadow: '2px 2px 10px black', transition: 'all .5s' }}
+            height={10}
+            width={10}
+            _hover={{ boxShadow: 'md', transition: 'all .5s' }}
             cursor='pointer'
           >
-            {nameInitials}
-          </Text>
+            {nameInitials === undefined ? '?' : nameInitials}
+          </Button>
         </PopoverTrigger>
         <PopoverContent>
           <PopoverBody>

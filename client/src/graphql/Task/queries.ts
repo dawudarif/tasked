@@ -8,6 +8,7 @@ export const TASKS_IN_COLLECTION = gql`
       createdAt
       id
       updatedAt
+      collectionId
     }
   }
 `;

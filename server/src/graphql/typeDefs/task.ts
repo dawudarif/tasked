@@ -7,7 +7,7 @@ const typeDefs = gql`
     body: String!
     completed: Boolean!
     createdBy: User!
-    collection: Collection!
+    collectionId: ID!
     createdAt: String!
     updatedAt: String!
   }

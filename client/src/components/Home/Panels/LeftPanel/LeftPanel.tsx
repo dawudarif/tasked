@@ -1,4 +1,4 @@
-import { Stack } from '@chakra-ui/react';
+import { Flex, Stack } from '@chakra-ui/react';
 import React from 'react';
 import { LuLayoutDashboard, LuListTodo, LuTimer } from 'react-icons/lu';
 import { IPanelItem } from '../../../../util/types';

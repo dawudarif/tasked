@@ -16,7 +16,10 @@ const Collections: React.FC<CollectionsProps> = ({
   selected,
   setSelected,
 }) => {
-  const size = 30;
+  const getIcon = (id: number) => {
+    const getId = collectionIcons.find((icon) => icon.id === id);
+    return getId?.icon;
+  };
 
   return (
     <>
@@ -27,10 +30,11 @@ const Collections: React.FC<CollectionsProps> = ({
         <Flex
           justifyContent='flex-start'
           alignItems='center'
-          gap={2}
+          gap={3}
           flexWrap='wrap'
           paddingTop={4}
           marginX={6}
+          marginY={4}
         >
           {data.getAllCollections.map((item) => (
             <Flex
@@ -39,11 +43,11 @@ const Collections: React.FC<CollectionsProps> = ({
               alignItems='center'
               gap={4}
               background='white'
-              borderRadius='1.5rem'
+              rounded='1rem'
+              paddingY={2}
               paddingX={4}
-              paddingY={6}
               borderWidth='3px'
-              borderColor={selected === item.id ? item.color : 'transparent'}
+              borderColor={selected === item.id ? 'brand.100' : 'transparent'}
               cursor='pointer'
               shadow='md'
               onClick={() => setSelected(item.id, item.name)}
@@ -51,8 +55,15 @@ const Collections: React.FC<CollectionsProps> = ({
               <Text fontSize='1.2rem' fontWeight={600}>
                 {item.name}
               </Text>
-              <Box color={item.color} height={8} width={8}>
-                {collectionIcons[item.icon].icon}
+              <Box
+                background={item.color}
+                color='white'
+                padding={2}
+                rounded='lg'
+                height={10}
+                width={12}
+              >
+                {getIcon(item.icon)}
               </Box>
             </Flex>
           ))}

@@ -15,6 +15,7 @@ import { useState } from 'react';
 import { CREATE_COLLECTION } from '../../graphql/Collection/mutations';
 import { CREATE_TASK } from '../../graphql/Task/mutations';
 import { ICreateTask, ICreateTaskArgs } from '../../util/types';
+import { TASKS_IN_COLLECTION } from '../../graphql/Task/queries';
 
 interface CreateTaskModalProps {
   collectionId: string;
@@ -39,6 +40,43 @@ const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
         body: text,
       },
     },
+    optimisticResponse: {
+      __typename: 'Mutation',
+      createTask: {
+        __typename: 'Task',
+        id: `temp-id-${Math.random().toString(36).substr(2, 9)}`,
+        name: text,
+        completed: false,
+        updatedAt: new Date().toISOString(),
+        createdAt: new Date().toISOString(),
+      },
+    } as any,
+    update: (cache, mutationResult) => {
+      const createTask = mutationResult.data?.createTask;
+
+      if (createTask) {
+        const { allTasksInCollection } = cache.readQuery<any>({
+          query: TASKS_IN_COLLECTION,
+          variables: {
+            input: {
+              collectionId,
+            },
+          },
+        });
+
+        cache.writeQuery({
+          query: TASKS_IN_COLLECTION,
+          variables: {
+            input: {
+              collectionId,
+            },
+          },
+          data: {
+            allTasksInCollection: [...allTasksInCollection, createTask],
+          },
+        });
+      }
+    },
   });
 
   const handleCreateTask = () => {
@@ -47,18 +85,10 @@ const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
     onClose();
   };
 
-  const OverlayOne = () => (
-    <ModalOverlay
-      bg='blackAlpha.300'
-      backdropFilter='blur(10px) hue-rotate(90deg)'
-    />
-  );
-  const [overlay, setOverlay] = useState(<OverlayOne />);
-
   return (
     <>
-      <Modal isCentered isOpen={isOpen} onClose={onClose}>
-        {overlay}
+      <Modal onClose={onClose} size={'2xl'} isOpen={isOpen}>
+        <ModalOverlay />
         <ModalContent>
           <ModalHeader>Create Task</ModalHeader>
           <ModalCloseButton />
