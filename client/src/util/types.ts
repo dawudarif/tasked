@@ -24,6 +24,7 @@ export interface ICollectionItem {
   createdAt: string;
   __typename: string;
 }
+
 export interface ICollection {
   getAllCollections: Array<ICollectionItem>;
 }

@@ -1,13 +1,16 @@
 import { Box } from '@chakra-ui/react';
 import Dashboard from './RightPanel/Dashboard/Dashboard';
-import Todo from './RightPanel/Todo/Todo';
 import TimeSheets from './RightPanel/TimeSheets/TimeSheets';
+import { useLocation } from 'react-router-dom';
+import Tasks from './RightPanel/Tasks/Tasks';
 
-type MainPanelProps = {
-  selected: string;
-};
+const MainPanel: React.FC = () => {
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const menu = params.get('menu');
+  const list = params.get('list');
+  console.log(list);
 
-const MainPanel: React.FC<MainPanelProps> = ({ selected }) => {
   return (
     <Box
       width={{ lg: '80%' }}
@@ -16,9 +19,9 @@ const MainPanel: React.FC<MainPanelProps> = ({ selected }) => {
       backgroundColor='white'
       paddingTop={4}
     >
-      {selected === 'dashboard' && <Dashboard />}
-      {selected === 'todo' && <Todo />}
-      {selected === 'timesheets' && <TimeSheets />}
+      {menu === 'dashboard' && <Dashboard />}
+      {menu === 'timesheets' && <TimeSheets />}
+      {list !== '' && <Tasks collectionId={list} />}
     </Box>
   );
 };

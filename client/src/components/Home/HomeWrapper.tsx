@@ -4,16 +4,10 @@ import MainPanel from './Panels/MainPanel';
 import { useState } from 'react';
 
 const HomeWrapper = () => {
-  const [selected, setSelected] = useState('dashboard');
-
-  const handleSelect = (name: string) => {
-    setSelected(name);
-  };
-
   return (
-    <Flex justifyContent='center'>
-      <LeftPanel setSelected={handleSelect} selected={selected} />
-      <MainPanel selected={selected} />
+    <Flex justifyContent='flex-start'>
+      <LeftPanel />
+      <MainPanel />
     </Flex>
   );
 };

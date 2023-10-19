@@ -1,24 +1,29 @@
 import { Flex, Text } from '@chakra-ui/react';
 import React from 'react';
+import {
+  Router,
+  useLocation,
+  useNavigate,
+  useNavigation,
+  useSearchParams,
+} from 'react-router-dom';
 
 interface SingleItemProps {
   name: string;
   icon: JSX.Element;
-  setSelected: (name: string) => void;
-  selected: string;
 }
 
-const SingleItem: React.FC<SingleItemProps> = ({
-  name,
-  icon,
-  setSelected,
-  selected,
-}) => {
+const SingleItem: React.FC<SingleItemProps> = ({ name, icon }) => {
+  const router = useNavigate();
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const menu = params.get('menu');
+
   return (
     <Flex
       _hover={{ background: 'black', color: 'white' }}
-      color={selected === name ? 'white' : 'black'}
-      background={selected === name ? 'black' : 'white'}
+      color={menu === name ? 'white' : 'black'}
+      background={menu === name ? 'black' : 'white'}
       borderRadius='1rem'
       paddingX={6}
       paddingY={8}
@@ -29,7 +34,7 @@ const SingleItem: React.FC<SingleItemProps> = ({
       gap={4}
       height='1.5rem'
       cursor='pointer'
-      onClick={() => setSelected(name)}
+      onClick={() => router(`/?menu=${name}`)}
     >
       {icon}
       <Text textTransform='capitalize'>{name}</Text>
