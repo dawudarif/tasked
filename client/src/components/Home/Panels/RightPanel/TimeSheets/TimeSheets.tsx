@@ -6,14 +6,7 @@ type TimeSheetsProps = {};
 
 const TimeSheets: React.FC<TimeSheetsProps> = () => {
   return (
-    <Box
-      background='brand.300'
-      borderTopLeftRadius='1rem'
-      border='2px'
-      borderColor='red'
-      height='100%'
-      width='100%'
-    >
+    <Box height='100%' width='100%'>
       <Today />
     </Box>
   );

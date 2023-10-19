@@ -9,19 +9,19 @@ const MainPanel: React.FC = () => {
   const params = new URLSearchParams(location.search);
   const menu = params.get('menu');
   const list = params.get('list');
-  console.log(list);
+  const name = params.get('name');
 
   return (
     <Box
       width={{ lg: '80%' }}
       minHeight='100vh'
       borderTopLeftRadius='2rem'
-      backgroundColor='white'
+      background='brand.300'
       paddingTop={4}
     >
       {menu === 'dashboard' && <Dashboard />}
       {menu === 'timesheets' && <TimeSheets />}
-      {list !== '' && <Tasks collectionId={list} />}
+      {list !== '' && <Tasks collectionId={list} collectionName={name} />}
     </Box>
   );
 };

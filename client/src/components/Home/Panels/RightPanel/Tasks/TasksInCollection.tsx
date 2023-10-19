@@ -1,108 +1,68 @@
-import { useLazyQuery } from '@apollo/client';
-import { Checkbox, Flex, Stack, Text, Button } from '@chakra-ui/react';
-import { useState, useEffect } from 'react';
-import { TASKS_IN_COLLECTION } from '../../../../../graphql/Task/queries';
-import CreateTaskModal from '../../../../Modal/CreateTaskModal';
-import { IGetTaskArgs, IGetTasks } from '../../../../../util/types';
-import Loader from '../../../../Loader';
+import { Box, Button, Checkbox, Flex, Stack, Text } from '@chakra-ui/react';
+import { useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
-import SingleTask from './SingleTask';
+import { IGetTasks } from '../../../../../util/types';
+import CreateTaskModal from '../../../../Modal/CreateTaskModal';
 
 interface TasksInCollectionProps {
+  data: IGetTasks;
   collectionId: string;
-  collectionName: string;
 }
 
 const TasksInCollection: React.FC<TasksInCollectionProps> = ({
+  data,
   collectionId,
-  collectionName,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [getTasks, { loading, data }] = useLazyQuery<IGetTasks, IGetTaskArgs>(
-    TASKS_IN_COLLECTION,
-    {
-      variables: {
-        input: {
-          collectionId,
-        },
-      },
-    },
-  );
-
-  useEffect(() => {
-    if (collectionId === '') return;
-    getTasks();
-  }, [collectionId]);
-
-  if (loading) {
-    return (
-      <Flex
-        justifyContent='center'
-        alignItems='center'
-        height='20rem'
-        width='100%'
-      >
-        <Loader size={60} />;
-      </Flex>
-    );
-  }
-
-  if (!data?.allTasksInCollection) return null;
+  const tasks = data?.allTasksInCollection;
 
   return (
     <>
-      <Stack justifyContent='center' align='baseline' marginX={8}>
+      <Stack width='60%' background='white' borderRadius='1rem' shadow='lg'>
         <Flex
-          alignItems='center'
           justifyContent='space-between'
-          marginY={4}
-          width='100%'
+          alignItems='center'
+          background='#333333'
+          px={6}
+          py={1}
+          borderTopRadius='1rem'
         >
-          <Text fontSize='1.5rem' fontWeight={700}>
-            {collectionName}
+          <Text fontSize='1.2rem' fontWeight={700} color='white'>
+            List
           </Text>
-          <Button
+          <Box
+            background='brand.100'
+            borderRadius='50%'
+            padding={1}
             onClick={() => setIsOpen(true)}
-            alignItems='center'
-            marginX={6}
           >
-            <Text>Create Task</Text> <AiOutlinePlus size={35} />
-          </Button>
+            <AiOutlinePlus size={20} />
+          </Box>
         </Flex>
-
-        {data?.allTasksInCollection.length > 0 ? (
-          <Stack
-            background='white'
-            boxShadow='md'
-            justifyContent='center'
-            align='baseline'
-            width='100%'
-            marginY={8}
-            rounded='lg'
-            border='2px'
-            borderColor='#5555'
+        {tasks.map((task, i) => (
+          <Flex
+            key={task.id}
+            justifyContent='flex-start'
+            alignItems='center'
+            gap={4}
+            borderBottom='2px'
+            borderColor={tasks.length - 1 > i ? '#5555' : 'transparent'}
+            padding={1}
+            px={2}
+            cursor='pointer'
           >
-            {data?.allTasksInCollection.map((item, i) => (
-              <SingleTask
-                item={item}
-                key={item.id}
-                length={data.allTasksInCollection.length}
-                itemIndex={i}
-              />
-            ))}
-          </Stack>
-        ) : (
-          <Flex justifyContent='center' alignItems='center' height='20rem'>
-            <Text textDecorationStyle='double' fontSize='1.2rem'>
-              No Tasks in this collection, create new tasks to view here.
+            <Checkbox />
+
+            <Text fontSize='1rem' fontWeight={600}>
+              {task.body}
             </Text>
           </Flex>
-        )}
+        ))}
       </Stack>
       <CreateTaskModal
+        collectionId={collectionId}
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
-        collectionId={collectionId}
       />
     </>
   );

@@ -1,5 +1,3 @@
-import { Interface } from 'readline';
-
 export interface IUserProfile {
   userProfile: {
     id: string;

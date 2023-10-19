@@ -4,9 +4,8 @@ import { BsFillPlayFill } from 'react-icons/bs';
 
 const Head = () => {
   return (
-    <Flex justifyContent='space-between' alignItems='center' paddingX={6}>
+    <Flex justifyContent='space-between' alignItems='center'>
       <Today />
-
       <Flex
         justifyContent='center'
         alignItems='center'

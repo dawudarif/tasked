@@ -7,12 +7,7 @@ type DashboardProps = {};
 
 const Dashboard: React.FC<DashboardProps> = () => {
   return (
-    <Box
-      background='brand.300'
-      borderTopLeftRadius='2rem'
-      height='100%'
-      width='100%'
-    >
+    <Box height='100%' width='100%'>
       <Head />
       <Box
         background='white'

@@ -16,7 +16,7 @@ import { TASKS_IN_COLLECTION } from '../../graphql/Task/queries';
 import { ICreateTask, ICreateTaskArgs } from '../../util/types';
 
 interface CreateTaskModalProps {
-  collectionId: string;
+  collectionId: string | null;
   isOpen: boolean;
   onClose: () => void;
 }
@@ -29,12 +29,6 @@ const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
   const [text, setText] = useState('');
 
   const [createTask] = useMutation<ICreateTask, ICreateTaskArgs>(CREATE_TASK, {
-    variables: {
-      input: {
-        collectionId,
-        body: text,
-      },
-    },
     optimisticResponse: {
       __typename: 'Mutation',
       createTask: {
@@ -75,8 +69,15 @@ const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
   });
 
   const handleCreateTask = () => {
-    if (text === '' || collectionId === '') return;
-    createTask();
+    if (text === '' || collectionId === '' || collectionId === null) return;
+    createTask({
+      variables: {
+        input: {
+          collectionId,
+          body: text,
+        },
+      },
+    });
     setText('');
     onClose();
   };

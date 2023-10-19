@@ -1,11 +1,9 @@
-import { Box, Flex, Heading, Stack, Text } from '@chakra-ui/react';
-import { ICollection } from '../../../../util/types';
 import { useQuery } from '@apollo/client';
-import CreateTaskModal from '../../../Modal/CreateTaskModal';
-import { MdOutlineCollectionsBookmark } from 'react-icons/md';
+import { Box, Flex, Stack, Text } from '@chakra-ui/react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { collectionIcons } from '../../../../data/icons';
 import { GET_ALL_COLLECTIONS } from '../../../../graphql/Collection/queries';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { ICollection } from '../../../../util/types';
 
 const Collections: React.FC = () => {
   const { data } = useQuery<ICollection>(GET_ALL_COLLECTIONS);
@@ -32,7 +30,7 @@ const Collections: React.FC = () => {
           paddingY={2}
           paddingX={4}
           cursor='pointer'
-          onClick={() => router(`/?list=${item.id}`)}
+          onClick={() => router(`/?list=${item.id}&name=${item.name}`)}
         >
           <Box
             background={item.color}

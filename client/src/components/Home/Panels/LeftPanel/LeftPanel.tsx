@@ -1,12 +1,11 @@
-import { Box, Button, Flex, Stack, Text } from '@chakra-ui/react';
-import React from 'react';
+import { Box, Flex, Stack, Text } from '@chakra-ui/react';
+import React, { useState } from 'react';
+import { AiOutlinePlus } from 'react-icons/ai';
 import { LuLayoutDashboard, LuListTodo, LuTimer } from 'react-icons/lu';
 import { IPanelItem } from '../../../../util/types';
-import SingleItem from './SingleItem';
-import { AiOutlinePlus } from 'react-icons/ai';
 import CreateCollectionModal from '../../../Modal/CreateCollectionModal';
-import { useState } from 'react';
 import Collections from './Collections';
+import SingleItem from './SingleItem';
 
 const LeftPanel: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
