@@ -139,7 +139,6 @@ const resolvers = {
     ) => {
       const taskId = args.input;
       const { cookie, prisma } = context;
-      console.log(taskId);
 
       try {
         const tokenCookie = cookie;

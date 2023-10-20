@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Today from '../../../../common/Today';
-import { Box, Flex, Heading } from '@chakra-ui/react';
+import { Box, Button, Flex, Heading } from '@chakra-ui/react';
 import { useLazyQuery } from '@apollo/client';
 import { TASKS_IN_COLLECTION } from '../../../../../graphql/Task/queries';
 import { IGetTasks, IGetTaskArgs } from '../../../../../util/types';
@@ -19,8 +19,6 @@ const Tasks: React.FC<TasksProps> = ({ collectionId, collectionName }) => {
     TASKS_IN_COLLECTION,
   );
 
-  console.log(data);
-
   useEffect(() => {
     if (collectionId === '' || collectionId === null) return;
     getTasks({
@@ -38,16 +36,29 @@ const Tasks: React.FC<TasksProps> = ({ collectionId, collectionName }) => {
     <>
       <Box>
         <Today />
-        <Box>
-          <Heading background='#fad064' width='100%' mt={4} p={4}>
-            {collectionName}
-          </Heading>
-          <Flex justifyContent='flex-start' alignItems='center' m={6}>
-            {data && collectionId && (
-              <TasksInCollection data={data} collectionId={collectionId} />
+        <Flex
+          justifyContent='flex-start'
+          alignItems='center'
+          my={6}
+          marginX={'10'}
+        >
+          {data &&
+            data?.allTasksInCollection.length > 0 &&
+            collectionId &&
+            collectionName && (
+              <TasksInCollection
+                data={data}
+                collectionId={collectionId}
+                collectionName={collectionName}
+              />
             )}
-          </Flex>
-        </Box>
+          {data && data?.allTasksInCollection.length <= 0 && (
+            <>
+              <Box>NO Tasks Exist Here</Box>
+              <Button onClick={() => setIsOpen(true)}>Create a new task</Button>
+            </>
+          )}
+        </Flex>
       </Box>
       <CreateTaskModal
         isOpen={isOpen}

@@ -3,15 +3,18 @@ import { useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { IGetTasks } from '../../../../../util/types';
 import CreateTaskModal from '../../../../Modal/CreateTaskModal';
+import SingleTask from './SingleTask';
 
 interface TasksInCollectionProps {
   data: IGetTasks;
   collectionId: string;
+  collectionName: string;
 }
 
 const TasksInCollection: React.FC<TasksInCollectionProps> = ({
   data,
   collectionId,
+  collectionName,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const tasks = data?.allTasksInCollection;
@@ -28,7 +31,7 @@ const TasksInCollection: React.FC<TasksInCollectionProps> = ({
           borderTopRadius='1rem'
         >
           <Text fontSize='1.2rem' fontWeight={700} color='white'>
-            List
+            {collectionName}
           </Text>
           <Box
             background='brand.100'
@@ -40,23 +43,12 @@ const TasksInCollection: React.FC<TasksInCollectionProps> = ({
           </Box>
         </Flex>
         {tasks.map((task, i) => (
-          <Flex
-            key={task.id}
-            justifyContent='flex-start'
-            alignItems='center'
-            gap={4}
-            borderBottom='2px'
-            borderColor={tasks.length - 1 > i ? '#5555' : 'transparent'}
-            padding={1}
-            px={2}
-            cursor='pointer'
-          >
-            <Checkbox />
-
-            <Text fontSize='1rem' fontWeight={600}>
-              {task.body}
-            </Text>
-          </Flex>
+          <SingleTask
+            task={task}
+            index={i}
+            key={i}
+            tasksLength={tasks.length}
+          />
         ))}
       </Stack>
       <CreateTaskModal

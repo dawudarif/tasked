@@ -1,5 +1,5 @@
 import { Flex, Text } from '@chakra-ui/react';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 interface SingleItemProps {
@@ -12,6 +12,12 @@ const SingleItem: React.FC<SingleItemProps> = ({ name, icon }) => {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const menu = params.get('menu');
+
+  useEffect(() => {
+    if (menu === '' || !menu) {
+      router(`/?menu=dashboard`);
+    }
+  }, []);
 
   return (
     <Flex

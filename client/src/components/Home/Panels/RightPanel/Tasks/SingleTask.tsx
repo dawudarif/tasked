@@ -6,12 +6,16 @@ import { useMutation } from '@apollo/client';
 import { UPDATE_TASK } from '../../../../../graphql/Task/mutations';
 
 interface SingleTaskProps {
-  item: Task;
-  length: number;
-  itemIndex: number;
+  task: Task;
+  index: number;
+  tasksLength: number;
 }
 
-const SingleTask: React.FC<SingleTaskProps> = ({ item, length, itemIndex }) => {
+const SingleTask: React.FC<SingleTaskProps> = ({
+  task,
+  index,
+  tasksLength,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [updateTask] = useMutation(UPDATE_TASK);
 
@@ -20,44 +24,46 @@ const SingleTask: React.FC<SingleTaskProps> = ({ item, length, itemIndex }) => {
       variables: {
         input: {
           completed: checked,
-          id: item.id,
+          id: task.id,
         },
       },
     });
   };
 
   return (
-    <Flex
-      borderBottom={length - 1 === itemIndex ? 0 : '2px'}
-      borderColor='#5555'
-      paddingX={4}
-      paddingY={2}
-      gap={4}
-      fontSize='1.1rem'
-      fontWeight={600}
-      cursor='pointer'
-      width='100%'
-      onDoubleClick={() => setIsOpen(true)}
-    >
-      <Checkbox
-        isChecked={item.completed}
-        size='lg'
-        iconSize='2rem'
-        onChange={() => updateCheckbox(item.completed === true ? false : true)}
-      />
-      <Text
-        as={item.completed ? 'del' : 'a'}
-        color={item.completed ? '#2c2a2ac6' : 'black'}
+    <>
+      <Flex
+        key={task.id}
+        justifyContent='flex-start'
+        alignItems='center'
+        gap={4}
+        borderBottom='2px'
+        borderColor={tasksLength - 1 > index ? '#5555' : 'transparent'}
+        padding={1}
+        px={2}
+        cursor='pointer'
+        onDoubleClick={() => setIsOpen(true)}
       >
-        {item.body}
-      </Text>
+        <Checkbox
+          isChecked={task.completed}
+          size='lg'
+          iconSize='2rem'
+          onChange={() =>
+            updateCheckbox(task.completed === true ? false : true)
+          }
+        />
+
+        <Text fontSize='1rem' fontWeight={600}>
+          {task.body}
+        </Text>
+      </Flex>
       <UpdateTaskModal
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
-        taskId={item.id}
-        taskBody={item.body}
+        taskId={task.id}
+        taskBody={task.body}
       />
-    </Flex>
+    </>
   );
 };
 export default SingleTask;

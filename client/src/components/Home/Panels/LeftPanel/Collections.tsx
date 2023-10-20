@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { collectionIcons } from '../../../../data/icons';
 import { GET_ALL_COLLECTIONS } from '../../../../graphql/Collection/queries';
 import { ICollection } from '../../../../util/types';
+import { useEffect } from 'react';
 
 const Collections: React.FC = () => {
   const { data } = useQuery<ICollection>(GET_ALL_COLLECTIONS);
