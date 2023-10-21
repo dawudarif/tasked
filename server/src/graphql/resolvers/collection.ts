@@ -69,11 +69,13 @@ const resolvers = {
     },
     updateCollection: async (
       _: any,
-      args: { id: string; name: string },
+      args: {
+        input: { id: string; name: string; color: string; icon: number };
+      },
       context: GraphQLContext,
     ) => {
       const { cookie, prisma } = context;
-      const { id, name } = args;
+      const { id, name, icon, color } = args.input;
 
       try {
         const tokenCookie = cookie;
@@ -96,6 +98,8 @@ const resolvers = {
           },
           data: {
             name,
+            icon,
+            color,
           },
         });
 

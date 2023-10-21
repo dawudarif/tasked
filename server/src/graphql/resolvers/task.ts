@@ -50,6 +50,17 @@ const resolvers = {
           throw new Error('User not found');
         }
 
+        const checkCollection = await prisma.collection.findUnique({
+          where: {
+            id: collectionId,
+            createdById: findUser.id,
+          },
+        });
+
+        if (!checkCollection) {
+          throw new Error('Invalid Collection');
+        }
+
         const allTasksInCollection = await prisma.task.findMany({
           where: {
             createdById: findUser.id,
@@ -88,6 +99,17 @@ const resolvers = {
           throw new Error('Necessary data not provided');
         }
 
+        const checkCollection = await prisma.collection.findUnique({
+          where: {
+            id: collectionId,
+            createdById: findUser.id,
+          },
+        });
+
+        if (!checkCollection) {
+          throw new Error('Invalid Collection');
+        }
+
         const createTask = await prisma.task.create({
           data: {
             collectionId,
@@ -121,6 +143,17 @@ const resolvers = {
           throw new Error('User not found');
         }
 
+        const checkTask = await prisma.task.findUnique({
+          where: {
+            id,
+            createdById: findUser.id,
+          },
+        });
+
+        if (!checkTask) {
+          throw new Error('Invalid Task');
+        }
+
         const updateTask = await prisma.task.update({
           where: { id },
           data: { body, completed },
@@ -149,6 +182,17 @@ const resolvers = {
 
         if (!findUser) {
           throw new Error('User not found');
+        }
+
+        const checkTask = await prisma.task.findUnique({
+          where: {
+            id: taskId,
+            createdById: findUser.id,
+          },
+        });
+
+        if (!checkTask) {
+          throw new Error('Invalid Task');
         }
 
         const deletedTask = await prisma.task.delete({

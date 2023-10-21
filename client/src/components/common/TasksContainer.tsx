@@ -1,23 +1,22 @@
 import { Box, Button, Checkbox, Flex, Stack, Text } from '@chakra-ui/react';
 import { useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
-import { IGetTasks } from '../../../../../util/types';
-import CreateTaskModal from '../../../../Modal/CreateTaskModal';
+import { Task } from '../../util/types';
+import CreateTaskModal from '../Modal/CreateTaskModal';
 import SingleTask from './SingleTask';
 
-interface TasksInCollectionProps {
-  data: IGetTasks;
-  collectionId: string;
-  collectionName: string;
+interface TasksContainerProps {
+  tasks: Task[];
+  collectionId?: string;
+  collectionName?: string;
 }
 
-const TasksInCollection: React.FC<TasksInCollectionProps> = ({
-  data,
+const TasksContainer: React.FC<TasksContainerProps> = ({
+  tasks,
   collectionId,
   collectionName,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const tasks = data?.allTasksInCollection;
 
   return (
     <>
@@ -31,16 +30,18 @@ const TasksInCollection: React.FC<TasksInCollectionProps> = ({
           borderTopRadius='1rem'
         >
           <Text fontSize='1.2rem' fontWeight={700} color='white'>
-            {collectionName}
+            {collectionName ? collectionName : 'All Tasks'}
           </Text>
-          <Box
-            background='brand.100'
-            borderRadius='50%'
-            padding={1}
-            onClick={() => setIsOpen(true)}
-          >
-            <AiOutlinePlus size={20} />
-          </Box>
+          {collectionId && (
+            <Box
+              background='brand.100'
+              borderRadius='50%'
+              padding={1}
+              onClick={() => setIsOpen(true)}
+            >
+              <AiOutlinePlus size={20} />
+            </Box>
+          )}
         </Flex>
         {tasks.map((task, i) => (
           <SingleTask
@@ -51,12 +52,14 @@ const TasksInCollection: React.FC<TasksInCollectionProps> = ({
           />
         ))}
       </Stack>
-      <CreateTaskModal
-        collectionId={collectionId}
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-      />
+      {collectionId && (
+        <CreateTaskModal
+          collectionId={collectionId}
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+        />
+      )}
     </>
   );
 };
-export default TasksInCollection;
+export default TasksContainer;

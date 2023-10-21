@@ -22,7 +22,7 @@ const Login = () => {
         },
       },
       onCompleted: () => {
-        router('/');
+        router(`/?menu=dashboard`);
       },
     },
   );

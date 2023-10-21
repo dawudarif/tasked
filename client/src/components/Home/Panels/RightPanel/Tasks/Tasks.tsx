@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Today from '../../../../common/Today';
-import { Box, Button, Flex } from '@chakra-ui/react';
+import { Box, Button, Flex, Text } from '@chakra-ui/react';
 import { useLazyQuery } from '@apollo/client';
 import { TASKS_IN_COLLECTION } from '../../../../../graphql/Task/queries';
 import { IGetTasks, IGetTaskArgs } from '../../../../../util/types';
 import CreateTaskModal from '../../../../Modal/CreateTaskModal';
-import TasksInCollection from './TasksInCollection';
 import Loader from '../../../../Loader';
+import TasksContainer from '../../../../common/TasksContainer';
 
 interface TasksProps {
   collectionId: string | null;
@@ -19,6 +19,8 @@ const Tasks: React.FC<TasksProps> = ({ collectionId, collectionName }) => {
   const [getTasks, { loading, data }] = useLazyQuery<IGetTasks, IGetTaskArgs>(
     TASKS_IN_COLLECTION,
   );
+
+  console.log(data);
 
   useEffect(() => {
     if (collectionId === '' || collectionId === null) return;
@@ -41,11 +43,13 @@ const Tasks: React.FC<TasksProps> = ({ collectionId, collectionName }) => {
           my={6}
           marginX={'10'}
         >
-          {data && data?.allTasksInCollection.length > 0
+          {data &&
+          data?.allTasksInCollection &&
+          data?.allTasksInCollection.length > 0
             ? collectionId &&
               collectionName && (
-                <TasksInCollection
-                  data={data}
+                <TasksContainer
+                  tasks={data?.allTasksInCollection}
                   collectionId={collectionId}
                   collectionName={collectionName}
                 />
@@ -61,10 +65,18 @@ const Tasks: React.FC<TasksProps> = ({ collectionId, collectionName }) => {
                 </Flex>
               )}
           {data && data?.allTasksInCollection.length <= 0 && (
-            <>
-              <Box>NO Tasks Exist Here</Box>
-              <Button onClick={() => setIsOpen(true)}>Create a new task</Button>
-            </>
+            <Flex
+              justifyContent='space-between'
+              alignItems='center'
+              width='100%'
+            >
+              <Text fontSize='1.2rem' fontWeight={700}>
+                No tasks exist in this collection
+              </Text>
+              <Button onClick={() => setIsOpen(true)} colorScheme='yellow'>
+                Create a new task
+              </Button>
+            </Flex>
           )}
         </Flex>
       </Box>

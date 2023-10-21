@@ -12,13 +12,6 @@ const SingleItem: React.FC<SingleItemProps> = ({ name, icon }) => {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const menu = params.get('menu');
-  const list = params.get('list');
-
-  useEffect(() => {
-    if (!menu || !list) {
-      router(`/?menu=dashboard`);
-    }
-  }, []);
 
   return (
     <Flex

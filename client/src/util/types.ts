@@ -20,7 +20,6 @@ export interface ICollectionItem {
   icon: number;
   updatedAt: string;
   createdAt: string;
-  __typename: string;
 }
 
 export interface ICollection {
@@ -34,7 +33,6 @@ export interface ICreateTask {
     createdAt: '1697562816262';
     id: string;
     updatedAt: string;
-    __typename: string;
   };
 }
 
@@ -68,7 +66,6 @@ export interface INewCollection {
   color: string;
   icon: number;
   updatedAt: string;
-  __typename: string;
 }
 
 export interface ICreateCollection {
@@ -79,7 +76,6 @@ export interface ICreateCollection {
     color: string;
     icon: number;
     updatedAt: string;
-    __typename: string;
   };
 }
 

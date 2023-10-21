@@ -19,7 +19,7 @@ const LeftPanel: React.FC = () => {
     },
     {
       id: 3,
-      name: 'timesheets',
+      name: 'todo',
       icon: <LuTimer size={size} />,
     },
   ];

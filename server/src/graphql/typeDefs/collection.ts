@@ -21,6 +21,8 @@ const typeDefs = gql`
   input UpdateCollectionInput {
     id: ID!
     name: String!
+    color: String!
+    icon: Int!
   }
 
   type DeleteCollection {

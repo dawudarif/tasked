@@ -12,3 +12,16 @@ export const TASKS_IN_COLLECTION = gql`
     }
   }
 `;
+
+export const ALL_TASKS = gql`
+  query getAllTasks {
+    getAllTasks {
+      body
+      collectionId
+      completed
+      createdAt
+      id
+      updatedAt
+    }
+  }
+`;

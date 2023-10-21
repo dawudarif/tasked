@@ -29,8 +29,6 @@ const Header: React.FC<IHeader> = ({ name }) => {
     router('/login');
   };
 
-  console.log(nameInitials);
-
   return (
     <Flex
       justifyContent='space-between'

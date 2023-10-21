@@ -2,9 +2,11 @@ import { useMutation } from '@apollo/client';
 import { Button, Heading, Input, Stack, Text } from '@chakra-ui/react';
 import React, { FormEvent, useState } from 'react';
 import { REGISTER_USER } from '../graphql/User/mutations';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Register = () => {
+  const router = useNavigate();
+
   const [registerData, setRegisterData] = useState({
     email: '',
     password: '',
@@ -23,10 +25,11 @@ const Register = () => {
           username: registerData.username,
         },
       },
+      onCompleted: () => {
+        router(`/?menu=dashboard`);
+      },
     },
   );
-
-  console.log(data);
 
   const handleLoginInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRegisterData({
