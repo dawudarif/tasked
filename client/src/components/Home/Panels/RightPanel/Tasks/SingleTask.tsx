@@ -60,8 +60,7 @@ const SingleTask: React.FC<SingleTaskProps> = ({
       <UpdateTaskModal
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
-        taskId={task.id}
-        taskBody={task.body}
+        task={task}
       />
     </>
   );

@@ -12,10 +12,13 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { DELETE_TASK, UPDATE_TASK } from '../../graphql/Task/mutations';
+import { AiOutlineDelete } from 'react-icons/ai';
+import { Task } from '../../util/types';
+import { TASKS_IN_COLLECTION } from '../../graphql/Task/queries';
 
 interface UpdateTaskModalProps {
-  taskBody: string;
-  taskId: string;
+  task: Task;
+
   isOpen: boolean;
   onClose: () => void;
 }
@@ -23,21 +26,106 @@ interface UpdateTaskModalProps {
 const UpdateTaskModal: React.FC<UpdateTaskModalProps> = ({
   isOpen,
   onClose,
-  taskBody,
-  taskId,
+  task,
 }) => {
-  const [text, setText] = useState(taskBody);
+  const [text, setText] = useState(task.body);
 
-  const [updateTask] = useMutation(UPDATE_TASK);
-  const [deleteTask] = useMutation(DELETE_TASK);
+  const [updateTask] = useMutation(UPDATE_TASK, {
+    optimisticResponse: {
+      __typename: 'Mutation',
+      updateTask: {
+        id: task.id,
+        body: text,
+        collectionId: task.collectionId,
+        completed: task.completed,
+        createdAt: task.createdAt,
+        updatedAt: new Date().toISOString(),
+        __typename: 'Task',
+      },
+    } as any,
+    update: (cache, mutationResult) => {
+      const updateTask = mutationResult.data?.updateTask;
+
+      if (updateTask) {
+        const { allTasksInCollection } = cache.readQuery<any>({
+          query: TASKS_IN_COLLECTION,
+          variables: {
+            input: {
+              collectionId: task.collectionId,
+            },
+          },
+        });
+
+        const taskIndex = allTasksInCollection.findIndex(
+          (t: Task) => t.id === updateTask.id,
+        );
+
+        if (taskIndex > -1) {
+          allTasksInCollection[taskIndex] = updateTask;
+        }
+
+        cache.writeQuery({
+          query: TASKS_IN_COLLECTION,
+          variables: {
+            input: {
+              collectionId: task.collectionId,
+            },
+          },
+          data: {
+            allTasksInCollection: [...allTasksInCollection],
+          },
+        });
+      }
+    },
+  });
+
+  const [deleteTask] = useMutation(DELETE_TASK, {
+    optimisticResponse: {
+      __typename: 'Mutation',
+      deleteTask: {
+        id: task.id,
+        __typename: 'Task',
+      },
+    },
+    update: (cache, mutationResult) => {
+      const deletedTask = mutationResult?.data?.deleteTask;
+
+      if (mutationResult) {
+        const { allTasksInCollection } = cache.readQuery<any>({
+          query: TASKS_IN_COLLECTION,
+          variables: {
+            input: {
+              collectionId: deletedTask.collectionId,
+            },
+          },
+        });
+
+        const updatedTasks = allTasksInCollection.filter(
+          (t: Task) => t.id !== deletedTask.id,
+        );
+
+        cache.writeQuery({
+          query: TASKS_IN_COLLECTION,
+          variables: {
+            input: {
+              collectionId: deletedTask.collectionId,
+            },
+          },
+          data: {
+            allTasksInCollection: updatedTasks,
+          },
+        });
+      }
+    },
+  });
 
   const handleUpdateTask = () => {
-    if (text === '' || taskId === '') return;
+    if (text === '' || task.id === '') return;
     updateTask({
       variables: {
         input: {
           body: text,
-          id: taskId,
+          id: task.id,
         },
       },
     });
@@ -47,7 +135,7 @@ const UpdateTaskModal: React.FC<UpdateTaskModalProps> = ({
   const handleDeleteTask = () => {
     deleteTask({
       variables: {
-        input: taskId,
+        input: task.id,
       },
     });
     onClose();
@@ -73,8 +161,15 @@ const UpdateTaskModal: React.FC<UpdateTaskModalProps> = ({
             />
           </ModalBody>
           <ModalFooter>
-            <Button colorScheme='red' mx={2} onClick={() => handleDeleteTask()}>
-              Delete Task
+            <Button
+              border='2px'
+              borderColor='red.900'
+              color='red.900'
+              background='white'
+              mx={2}
+              onClick={() => handleDeleteTask()}
+            >
+              <AiOutlineDelete color='red.900' size={30} />
             </Button>
             <Button
               onClick={handleUpdateTask}

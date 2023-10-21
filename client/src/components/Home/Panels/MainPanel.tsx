@@ -21,7 +21,7 @@ const MainPanel: React.FC = () => {
     >
       {menu === 'dashboard' && <Dashboard />}
       {menu === 'timesheets' && <TimeSheets />}
-      {list !== '' && <Tasks collectionId={list} collectionName={name} />}
+      {list && <Tasks collectionId={list} collectionName={name} />}
     </Box>
   );
 };

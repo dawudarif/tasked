@@ -28,11 +28,6 @@ const typeDefs = gql`
     collectionId: ID!
   }
 
-  type DeleteTask {
-    success: Boolean
-    message: String
-  }
-
   type Query {
     getAllTasks: [Task]
     allTasksInCollection(input: AllTasksInCollectionArgs): [Task]
@@ -41,7 +36,7 @@ const typeDefs = gql`
   type Mutation {
     createTask(input: CreateTaskInput): Task
     updateTask(input: UpdateTaskInput): Task
-    deleteTask(input: ID): DeleteTask
+    deleteTask(input: ID): Task
   }
 `;
 

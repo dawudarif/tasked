@@ -32,12 +32,13 @@ const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
     optimisticResponse: {
       __typename: 'Mutation',
       createTask: {
-        __typename: 'Task',
         id: `temp-id-${Math.random().toString(36).substr(2, 9)}`,
-        name: text,
+        body: text,
+        collectionId,
         completed: false,
-        updatedAt: new Date().toISOString(),
         createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+        __typename: 'Task',
       },
     } as any,
     update: (cache, mutationResult) => {

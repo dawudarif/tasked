@@ -29,8 +29,12 @@ export const UPDATE_TASK = gql`
 export const DELETE_TASK = gql`
   mutation Mutation($input: ID) {
     deleteTask(input: $input) {
-      message
-      success
+      completed
+      id
+      createdAt
+      collectionId
+      body
+      updatedAt
     }
   }
 `;

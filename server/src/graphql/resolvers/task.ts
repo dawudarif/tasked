@@ -151,14 +151,11 @@ const resolvers = {
           throw new Error('User not found');
         }
 
-        await prisma.task.delete({
+        const deletedTask = await prisma.task.delete({
           where: { id: taskId },
         });
 
-        return {
-          success: true,
-          message: 'Task deleted successfully',
-        };
+        return deletedTask;
       } catch (error: any) {
         console.log('deleteTask error', error);
         throw new Error(error.message);

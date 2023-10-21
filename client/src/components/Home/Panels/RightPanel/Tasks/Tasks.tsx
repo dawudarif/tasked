@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Today from '../../../../common/Today';
-import { Box, Button, Flex, Heading } from '@chakra-ui/react';
+import { Box, Button, Flex } from '@chakra-ui/react';
 import { useLazyQuery } from '@apollo/client';
 import { TASKS_IN_COLLECTION } from '../../../../../graphql/Task/queries';
 import { IGetTasks, IGetTaskArgs } from '../../../../../util/types';
 import CreateTaskModal from '../../../../Modal/CreateTaskModal';
 import TasksInCollection from './TasksInCollection';
+import Loader from '../../../../Loader';
 
 interface TasksProps {
   collectionId: string | null;
@@ -30,8 +31,6 @@ const Tasks: React.FC<TasksProps> = ({ collectionId, collectionName }) => {
     });
   }, [collectionId]);
 
-  // if (data?.allTasksInCollection.length === 0) return null;
-
   return (
     <>
       <Box>
@@ -42,16 +41,25 @@ const Tasks: React.FC<TasksProps> = ({ collectionId, collectionName }) => {
           my={6}
           marginX={'10'}
         >
-          {data &&
-            data?.allTasksInCollection.length > 0 &&
-            collectionId &&
-            collectionName && (
-              <TasksInCollection
-                data={data}
-                collectionId={collectionId}
-                collectionName={collectionName}
-              />
-            )}
+          {data && data?.allTasksInCollection.length > 0
+            ? collectionId &&
+              collectionName && (
+                <TasksInCollection
+                  data={data}
+                  collectionId={collectionId}
+                  collectionName={collectionName}
+                />
+              )
+            : loading && (
+                <Flex
+                  width='100%'
+                  height='70vh'
+                  justifyContent='center'
+                  alignItems='center'
+                >
+                  <Loader size={80} />
+                </Flex>
+              )}
           {data && data?.allTasksInCollection.length <= 0 && (
             <>
               <Box>NO Tasks Exist Here</Box>
