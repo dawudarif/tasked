@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { DELETE_TASK, UPDATE_TASK } from '../../graphql/Task/mutations';
-import { AiOutlineDelete } from 'react-icons/ai';
+import { RiDeleteBin6Line } from 'react-icons/ri';
 import { Task } from '../../util/types';
 import { TASKS_IN_COLLECTION } from '../../graphql/Task/queries';
 
@@ -169,7 +169,7 @@ const UpdateTaskModal: React.FC<UpdateTaskModalProps> = ({
               mx={2}
               onClick={() => handleDeleteTask()}
             >
-              <AiOutlineDelete color='red.900' size={30} />
+              <RiDeleteBin6Line color='red.900' size={25} />
             </Button>
             <Button
               onClick={handleUpdateTask}

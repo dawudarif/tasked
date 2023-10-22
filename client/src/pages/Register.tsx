@@ -14,7 +14,7 @@ const Register = () => {
     username: '',
   });
 
-  const [registerUser, { data, loading: registerLoading, error }] = useMutation(
+  const [registerUser, { loading: registerLoading }] = useMutation(
     REGISTER_USER,
     {
       variables: {
@@ -26,7 +26,7 @@ const Register = () => {
         },
       },
       onCompleted: () => {
-        router(`/?menu=dashboard`);
+        redirectToRoot();
       },
     },
   );
@@ -43,6 +43,10 @@ const Register = () => {
     e.preventDefault();
     registerUser();
   };
+
+  function redirectToRoot() {
+    window.location.href = '/?menu=dashboard';
+  }
 
   return (
     <Stack

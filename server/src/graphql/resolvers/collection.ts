@@ -110,12 +110,12 @@ const resolvers = {
       }
     },
     deleteCollection: async (
-      parent: any,
-      args: { id: string },
+      _: any,
+      args: { input: string },
       context: GraphQLContext,
     ) => {
       const { cookie, prisma } = context;
-      const { id } = args;
+      const id = args.input;
 
       try {
         const tokenCookie = cookie;
@@ -132,21 +132,15 @@ const resolvers = {
           throw new Error('Necessary fields not provided');
         }
 
-        const deleteCollection = await prisma.collection.delete({
-          where: { id },
-          include: {
-            task: {
-              where: {
-                collectionId: id,
-              },
-            },
-          },
+        const deletedCollection = await prisma.collection.delete({
+          where: { id, createdById: findUser.id },
         });
 
-        return {
-          success: true,
-          message: 'Collection deleted.',
-        };
+        await prisma.task.deleteMany({
+          where: { collectionId: id, createdById: findUser.id },
+        });
+
+        return deletedCollection;
       } catch (error: any) {
         console.log('deleteCollection error', error);
         throw new Error(error.message);

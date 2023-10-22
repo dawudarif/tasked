@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Dashboard from './RightPanel/Dashboard/Dashboard';
 import Tasks from './RightPanel/Tasks/Tasks';
 import Todo from './RightPanel/Todo/Todo';
+import { useEffect } from 'react';
 
 const MainPanel: React.FC = () => {
   const location = useLocation();

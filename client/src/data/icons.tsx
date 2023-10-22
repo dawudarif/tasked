@@ -1,5 +1,5 @@
 import { BiSolidCake, BiMoney } from 'react-icons/bi';
-import { FaNotesMedical } from 'react-icons/fa';
+import { FaListUl, FaNotesMedical } from 'react-icons/fa';
 import { IoAirplaneSharp } from 'react-icons/io5';
 import {
   BsFillBookmarksFill,
@@ -19,7 +19,7 @@ interface ICollectionIcon {
 export const collectionIcons: Array<ICollectionIcon> = [
   {
     id: 1,
-    icon: <BsListUl size='inherit' />,
+    icon: <FaListUl size='inherit' />,
   },
   { id: 2, icon: <BsFillBookmarksFill size='inherit' /> },
   {

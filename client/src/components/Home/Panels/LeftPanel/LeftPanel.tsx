@@ -6,6 +6,10 @@ import { IPanelItem } from '../../../../util/types';
 import CreateCollectionModal from '../../../Modal/CreateCollectionModal';
 import Collections from './Collections';
 import SingleItem from './SingleItem';
+import {
+  MdCollectionsBookmark,
+  MdOutlineCollectionsBookmark,
+} from 'react-icons/md';
 
 const LeftPanel: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -46,7 +50,7 @@ const LeftPanel: React.FC = () => {
         >
           <Flex gap={3} justifyContent='center' alignItems='center'>
             <Box background='black' color='white' rounded='md' padding={2}>
-              <LuListTodo size={25} />
+              <MdCollectionsBookmark size={25} />
             </Box>
             <Text color='black' fontSize='1.1rem' fontWeight={600}>
               Collections

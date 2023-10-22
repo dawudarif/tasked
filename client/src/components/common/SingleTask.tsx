@@ -22,7 +22,6 @@ const SingleTask: React.FC<SingleTaskProps> = ({
   const [updateTask] = useMutation(UPDATE_TASK, {
     update: (cache, mutationResult) => {
       const updateTask = mutationResult.data?.updateTask;
-      console.log(updateTask);
 
       if (updateTask) {
         const { allTasksInCollection } = cache.readQuery<any>({
@@ -90,7 +89,8 @@ const SingleTask: React.FC<SingleTaskProps> = ({
         borderBottom='2px'
         borderColor={tasksLength - 1 > index ? '#5555' : 'transparent'}
         padding={1}
-        px={2}
+        px={6}
+        py={2}
         cursor='pointer'
         onDoubleClick={() => setIsOpen(true)}
       >

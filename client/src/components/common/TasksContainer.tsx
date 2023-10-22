@@ -1,4 +1,4 @@
-import { Box, Button, Checkbox, Flex, Stack, Text } from '@chakra-ui/react';
+import { Box, Flex, Stack, Text } from '@chakra-ui/react';
 import { useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { Task } from '../../util/types';
@@ -20,7 +20,7 @@ const TasksContainer: React.FC<TasksContainerProps> = ({
 
   return (
     <>
-      <Stack width='60%' background='white' borderRadius='1rem' shadow='lg'>
+      <Stack width='80%' background='white' borderRadius='1rem' shadow='lg'>
         <Flex
           justifyContent='space-between'
           alignItems='center'

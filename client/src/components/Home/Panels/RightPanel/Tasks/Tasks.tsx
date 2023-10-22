@@ -41,7 +41,7 @@ const Tasks: React.FC<TasksProps> = ({ collectionId, collectionName }) => {
           justifyContent='flex-start'
           alignItems='center'
           my={6}
-          marginX={'10'}
+          marginX={'20'}
         >
           {data &&
           data?.allTasksInCollection &&

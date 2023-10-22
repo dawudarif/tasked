@@ -25,11 +25,6 @@ const typeDefs = gql`
     icon: Int!
   }
 
-  type DeleteCollection {
-    success: Boolean
-    message: String
-  }
-
   type Query {
     getAllCollections: [Collection]
   }
@@ -37,7 +32,7 @@ const typeDefs = gql`
   type Mutation {
     createCollection(input: CreateCollectionInput): Collection!
     updateCollection(input: UpdateCollectionInput): Collection!
-    deleteCollection(input: ID): DeleteCollection!
+    deleteCollection(input: ID): Collection!
   }
 `;
 

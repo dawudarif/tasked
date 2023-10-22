@@ -25,3 +25,16 @@ export const UPDATE_COLLECTION = gql`
     }
   }
 `;
+
+export const DELETE_COLLECTION = gql`
+  mutation deleteCollection($input: ID) {
+    deleteCollection(input: $input) {
+      color
+      createdAt
+      icon
+      id
+      name
+      updatedAt
+    }
+  }
+`;

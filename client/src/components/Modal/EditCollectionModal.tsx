@@ -14,18 +14,15 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { useState } from 'react';
+import { RiDeleteBin6Line } from 'react-icons/ri';
 import { colors } from '../../data/colors';
 import { collectionIcons } from '../../data/icons';
 import {
-  CREATE_COLLECTION,
+  DELETE_COLLECTION,
   UPDATE_COLLECTION,
 } from '../../graphql/Collection/mutations';
 import { GET_ALL_COLLECTIONS } from '../../graphql/Collection/queries';
-import {
-  ICollectionItem,
-  ICreateCollection,
-  ICreateCollectionArgs,
-} from '../../util/types';
+import { ICollectionItem, INewCollection } from '../../util/types';
 
 interface EditCollectionModalProps {
   isOpen: boolean;
@@ -79,9 +76,58 @@ const EditCollectionModal: React.FC<EditCollectionModalProps> = ({
     },
   });
 
+  const [deleteCollection] = useMutation(DELETE_COLLECTION, {
+    optimisticResponse: {
+      __typename: 'Mutation',
+      deleteTask: {
+        id: collection.id,
+        __typename: 'Task',
+      },
+    },
+    update: (cache, mutationResult) => {
+      const deletedCollection = mutationResult?.data?.deleteCollection;
+
+      if (mutationResult) {
+        const { getAllCollections } = cache.readQuery<any>({
+          query: GET_ALL_COLLECTIONS,
+          variables: {
+            input: {
+              collectionId: deletedCollection.id,
+            },
+          },
+        });
+
+        const updatedCollections = getAllCollections.filter(
+          (c: INewCollection) => c.id !== deletedCollection.id,
+        );
+
+        cache.writeQuery({
+          query: GET_ALL_COLLECTIONS,
+          variables: {
+            input: {
+              collectionId: deletedCollection.id,
+            },
+          },
+          data: {
+            getAllCollections: updatedCollections,
+          },
+        });
+      }
+    },
+  });
+
   const handleEditCollection = () => {
     if (text === '') return;
     updateCollection();
+    onClose();
+  };
+
+  const handleDeleteCollection = () => {
+    deleteCollection({
+      variables: {
+        input: collection.id,
+      },
+    });
     onClose();
   };
 
@@ -148,6 +194,16 @@ const EditCollectionModal: React.FC<EditCollectionModalProps> = ({
             </Flex>
           </ModalBody>
           <ModalFooter>
+            <Button
+              border='2px'
+              borderColor='red.900'
+              color='red.900'
+              background='white'
+              mx={2}
+              onClick={() => handleDeleteCollection()}
+            >
+              <RiDeleteBin6Line color='red.900' size={25} />
+            </Button>
             <Button
               onClick={handleEditCollection}
               background='brand.100'

@@ -22,7 +22,7 @@ const Login = () => {
         },
       },
       onCompleted: () => {
-        router(`/?menu=dashboard`);
+        redirectToRoot();
       },
     },
   );
@@ -39,6 +39,10 @@ const Login = () => {
     e.preventDefault();
     loginUser();
   };
+
+  function redirectToRoot() {
+    window.location.href = '/?menu=dashboard';
+  }
 
   return (
     <Stack
