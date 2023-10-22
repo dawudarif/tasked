@@ -86,3 +86,15 @@ export interface ICreateCollectionArgs {
     icon: number;
   };
 }
+
+export interface ITime {
+  id: string;
+  time: number;
+  createdAt: string;
+  note: string;
+  updatedAt: string;
+}
+
+export interface ITimesheet {
+  getAllTimeRecords: Array<ITime>;
+}

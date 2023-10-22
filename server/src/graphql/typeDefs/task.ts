@@ -3,7 +3,6 @@ import gql from 'graphql-tag';
 const typeDefs = gql`
   type Task {
     id: ID
-    index: String!
     body: String!
     completed: Boolean!
     createdBy: User!

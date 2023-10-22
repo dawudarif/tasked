@@ -1,7 +1,8 @@
 import { Box, Flex, Stack, Text } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
-import { LuLayoutDashboard, LuListTodo, LuTimer } from 'react-icons/lu';
+import { LuLayoutDashboard, LuTimer } from 'react-icons/lu';
+import { FcTodoList } from 'react-icons/fc';
 import { IPanelItem } from '../../../../util/types';
 import CreateCollectionModal from '../../../Modal/CreateCollectionModal';
 import Collections from './Collections';
@@ -10,6 +11,7 @@ import {
   MdCollectionsBookmark,
   MdOutlineCollectionsBookmark,
 } from 'react-icons/md';
+import { RiTodoLine } from 'react-icons/ri';
 
 const LeftPanel: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,8 +24,13 @@ const LeftPanel: React.FC = () => {
       icon: <LuLayoutDashboard size={size} />,
     },
     {
-      id: 3,
+      id: 2,
       name: 'todo',
+      icon: <RiTodoLine size={size} />,
+    },
+    {
+      id: 3,
+      name: 'timesheets',
       icon: <LuTimer size={size} />,
     },
   ];

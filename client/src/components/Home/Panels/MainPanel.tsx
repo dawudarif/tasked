@@ -4,6 +4,7 @@ import Dashboard from './RightPanel/Dashboard/Dashboard';
 import Tasks from './RightPanel/Tasks/Tasks';
 import Todo from './RightPanel/Todo/Todo';
 import { useEffect } from 'react';
+import Timesheets from './RightPanel/Timesheets/Timesheets';
 
 const MainPanel: React.FC = () => {
   const location = useLocation();
@@ -37,6 +38,7 @@ const MainPanel: React.FC = () => {
       </Text>
       {menu === 'dashboard' && <Dashboard />}
       {menu === 'todo' && <Todo />}
+      {menu === 'timesheets' && <Timesheets />}
       {list && <Tasks collectionId={list} collectionName={name} />}
     </Box>
   );

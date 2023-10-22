@@ -15,6 +15,7 @@ const resolvers = {
           throw new Error('Not authenticated');
         }
         const findUser = await getUser(tokenCookie, prisma);
+
         if (!findUser) {
           throw new Error('User not found');
         }
