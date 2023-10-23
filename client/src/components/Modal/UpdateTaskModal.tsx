@@ -13,12 +13,11 @@ import {
 import { useState } from 'react';
 import { DELETE_TASK, UPDATE_TASK } from '../../graphql/Task/mutations';
 import { RiDeleteBin6Line } from 'react-icons/ri';
-import { Task } from '../../util/types';
+import { ITask } from '../../util/types';
 import { TASKS_IN_COLLECTION } from '../../graphql/Task/queries';
 
 interface UpdateTaskModalProps {
-  task: Task;
-
+  task: ITask;
   isOpen: boolean;
   onClose: () => void;
 }
@@ -57,7 +56,7 @@ const UpdateTaskModal: React.FC<UpdateTaskModalProps> = ({
         });
 
         const taskIndex = allTasksInCollection.findIndex(
-          (t: Task) => t.id === updateTask.id,
+          (t: ITask) => t.id === updateTask.id,
         );
 
         if (taskIndex > -1) {
@@ -101,7 +100,7 @@ const UpdateTaskModal: React.FC<UpdateTaskModalProps> = ({
         });
 
         const updatedTasks = allTasksInCollection.filter(
-          (t: Task) => t.id !== deletedTask.id,
+          (t: ITask) => t.id !== deletedTask.id,
         );
 
         cache.writeQuery({

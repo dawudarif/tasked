@@ -1,12 +1,12 @@
 import { Box, Flex, Stack, Text } from '@chakra-ui/react';
 import { useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
-import { Task } from '../../util/types';
+import { ITask } from '../../util/types';
+import SingleTask from '../Home/Panels/RightPanel/Tasks/SingleTask';
 import CreateTaskModal from '../Modal/CreateTaskModal';
-import SingleTask from './SingleTask';
 
 interface TasksContainerProps {
-  tasks: Task[];
+  tasks: ITask[];
   collectionId?: string;
   collectionName?: string;
 }
@@ -20,13 +20,19 @@ const TasksContainer: React.FC<TasksContainerProps> = ({
 
   return (
     <>
-      <Stack width='80%' background='white' borderRadius='1rem' shadow='lg'>
+      <Stack
+        width='80%'
+        background='white'
+        borderRadius='1rem'
+        shadow='lg'
+        margin={0}
+      >
         <Flex
           justifyContent='space-between'
           alignItems='center'
           background='#333333'
           px={6}
-          py={1}
+          py={3}
           borderTopRadius='1rem'
         >
           <Text fontSize='1.2rem' fontWeight={700} color='white'>

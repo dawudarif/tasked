@@ -5,21 +5,15 @@ import { Flex, Box, Text } from '@chakra-ui/react';
 import Loader from '../../../../Loader';
 import Today from '../../../../common/Today';
 import TasksContainer from '../../../../common/TasksContainer';
-type TodoProps = {};
 
-const Todo: React.FC<TodoProps> = () => {
-  const { data, loading, error } = useQuery(ALL_TASKS);
+const Todo: React.FC = () => {
+  const { data, loading } = useQuery(ALL_TASKS);
 
   return (
     <>
       <Box>
         <Today />
-        <Flex
-          justifyContent='flex-start'
-          alignItems='center'
-          my={6}
-          marginX={'10'}
-        >
+        <Flex justifyContent='center' alignItems='center' my={6} width='100%'>
           {data && data?.getAllTasks.length > 0 ? (
             <TasksContainer tasks={data?.getAllTasks} />
           ) : (

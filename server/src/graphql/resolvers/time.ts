@@ -33,24 +33,41 @@ const resolvers = {
       _: any,
       args: {
         input: {
-          note?: string;
+          note: string;
           time: number;
         };
       },
       context: GraphQLContext,
     ) => {
-      const { prisma } = context;
+      const { prisma, cookie } = context;
+      const { note, time } = args.input;
 
-      if (args.input.note && args.input.time) {
+      try {
+        const tokenCookie = cookie;
+        if (!tokenCookie) {
+          throw new Error('Not authenticated');
+        }
+        const findUser = await getUser(tokenCookie, prisma);
+        if (!findUser) {
+          throw new Error('User not found');
+        }
+
+        if (!time || !note) {
+          throw new Error('Necessary data not provided');
+        }
+
         const newTimeRecord = await prisma.time.create({
           data: {
-            createdById: '6533f0d223ec786e72427d04',
-            time: args.input.time,
-            note: args.input.note,
+            createdById: findUser.id,
+            time,
+            note,
           },
         });
 
         return newTimeRecord;
+      } catch (error: any) {
+        console.log('createTimeRecord error', error);
+        throw new Error(error.message);
       }
     },
   },

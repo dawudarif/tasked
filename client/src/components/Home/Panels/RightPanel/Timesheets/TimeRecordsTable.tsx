@@ -9,7 +9,6 @@ import {
   Th,
   Tbody,
   Td,
-  Tfoot,
 } from '@chakra-ui/react';
 import {
   formatDateLong,
@@ -26,8 +25,8 @@ const TimeRecordsTable: React.FC<TimeRecordsTableProps> = ({ data }) => {
   );
 
   return (
-    <TableContainer>
-      <Table variant='simple'>
+    <TableContainer width='70%'>
+      <Table variant='unstyled'>
         <TableCaption>Time Records</TableCaption>
         <Thead>
           <Tr color='white' bg='#333333' fontSize='1.1rem' fontWeight={600}>

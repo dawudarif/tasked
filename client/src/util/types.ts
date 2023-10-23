@@ -27,13 +27,7 @@ export interface ICollection {
 }
 
 export interface ICreateTask {
-  createTask: {
-    body: string;
-    completed: boolean;
-    createdAt: '1697562816262';
-    id: string;
-    updatedAt: string;
-  };
+  createTask: ITask;
 }
 
 export interface ICreateTaskArgs {
@@ -43,7 +37,7 @@ export interface ICreateTaskArgs {
   };
 }
 
-export interface Task {
+export interface ITask {
   body: string;
   completed: boolean;
   createdAt: string;
@@ -53,7 +47,7 @@ export interface Task {
 }
 
 export interface IGetTasks {
-  allTasksInCollection: Array<Task>;
+  allTasksInCollection: Array<ITask>;
 }
 export interface IGetTaskArgs {
   input: { collectionId: string };
@@ -109,4 +103,23 @@ export interface ITimeRecord {
 
 export interface IAllTimeRecords {
   getAllTimeRecords: Array<ITimeRecord>;
+}
+
+export interface ICreateTimeRecordArgs {
+  input: {
+    note: string;
+    time: number;
+  };
+}
+
+export interface TimeRecord {
+  id: string;
+  time: number;
+  note: string;
+  updatedAt: string;
+  createdAt: string;
+}
+
+export interface ICreateTimeRecord {
+  createTimeRecord: TimeRecord;
 }

@@ -11,7 +11,7 @@ const typeDefs = gql`
   }
 
   input CreateTimeRecordInput {
-    note: String
+    note: String!
     time: Int!
   }
 
@@ -20,7 +20,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    createTimeRecord(input: CreateTimeRecordInput): [Time]
+    createTimeRecord(input: CreateTimeRecordInput): Time!
   }
 `;
 

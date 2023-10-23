@@ -1,13 +1,13 @@
-import { Flex, Checkbox, Text } from '@chakra-ui/react';
-import { useState } from 'react';
-import { Task } from '../../util/types';
-import UpdateTaskModal from '../Modal/UpdateTaskModal';
 import { useMutation } from '@apollo/client';
-import { UPDATE_TASK } from '../../graphql/Task/mutations';
-import { TASKS_IN_COLLECTION } from '../../graphql/Task/queries';
+import { useState } from 'react';
+import { UPDATE_TASK } from '../../../../../graphql/Task/mutations';
+import { TASKS_IN_COLLECTION } from '../../../../../graphql/Task/queries';
+import { ITask } from '../../../../../util/types';
+import UpdateTaskModal from '../../../../Modal/UpdateTaskModal';
+import TaskItem from '../../../../common/TaskItem';
 
 interface SingleTaskProps {
-  task: Task;
+  task: ITask;
   index: number;
   tasksLength: number;
 }
@@ -34,7 +34,7 @@ const SingleTask: React.FC<SingleTaskProps> = ({
         });
 
         const taskIndex = allTasksInCollection.findIndex(
-          (t: Task) => t.id === updateTask.id,
+          (t: ITask) => t.id === updateTask.id,
         );
 
         if (taskIndex > -1) {
@@ -81,32 +81,13 @@ const SingleTask: React.FC<SingleTaskProps> = ({
 
   return (
     <>
-      <Flex
-        key={task.id}
-        justifyContent='flex-start'
-        alignItems='center'
-        gap={4}
-        borderBottom='2px'
-        borderColor={tasksLength - 1 > index ? '#5555' : 'transparent'}
-        padding={1}
-        px={6}
-        py={2}
-        cursor='pointer'
-        onDoubleClick={() => setIsOpen(true)}
-      >
-        <Checkbox
-          isChecked={task.completed}
-          size='lg'
-          iconSize='2rem'
-          onChange={() =>
-            updateCheckbox(task.completed === true ? false : true)
-          }
-        />
-
-        <Text fontSize='1rem' fontWeight={600}>
-          {task.body}
-        </Text>
-      </Flex>
+      <TaskItem
+        task={task}
+        setIsOpen={setIsOpen}
+        tasksLength={tasksLength}
+        index={index}
+        updateCheckbox={updateCheckbox}
+      />
       <UpdateTaskModal
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}

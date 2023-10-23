@@ -20,8 +20,6 @@ const Tasks: React.FC<TasksProps> = ({ collectionId, collectionName }) => {
     TASKS_IN_COLLECTION,
   );
 
-  console.log(data);
-
   useEffect(() => {
     if (collectionId === '' || collectionId === null) return;
     getTasks({
@@ -37,12 +35,7 @@ const Tasks: React.FC<TasksProps> = ({ collectionId, collectionName }) => {
     <>
       <Box>
         <Today />
-        <Flex
-          justifyContent='flex-start'
-          alignItems='center'
-          my={6}
-          marginX={'20'}
-        >
+        <Flex justifyContent='center' alignItems='center' my={6} width='100%'>
           {data &&
           data?.allTasksInCollection &&
           data?.allTasksInCollection.length > 0
@@ -69,6 +62,7 @@ const Tasks: React.FC<TasksProps> = ({ collectionId, collectionName }) => {
               justifyContent='space-between'
               alignItems='center'
               width='100%'
+              mx={8}
             >
               <Text fontSize='1.2rem' fontWeight={700}>
                 No tasks exist in this collection

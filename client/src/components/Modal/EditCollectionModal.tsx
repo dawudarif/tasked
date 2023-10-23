@@ -23,6 +23,7 @@ import {
 } from '../../graphql/Collection/mutations';
 import { GET_ALL_COLLECTIONS } from '../../graphql/Collection/queries';
 import { ICollectionItem, INewCollection } from '../../util/types';
+import { useNavigate } from 'react-router-dom';
 
 interface EditCollectionModalProps {
   isOpen: boolean;
@@ -35,6 +36,7 @@ const EditCollectionModal: React.FC<EditCollectionModalProps> = ({
   onClose,
   collection,
 }) => {
+  const router = useNavigate();
   const [text, setText] = useState(collection.name);
   const [color, setColor] = useState(collection.color);
   const [icon, setIcon] = useState(collection.icon);
@@ -113,6 +115,9 @@ const EditCollectionModal: React.FC<EditCollectionModalProps> = ({
           },
         });
       }
+    },
+    onCompleted: () => {
+      router('/?menu=todo');
     },
   });
 

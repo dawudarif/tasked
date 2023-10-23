@@ -11,19 +11,21 @@ import { HiPlay } from 'react-icons/hi2';
 import { BsFillPauseFill } from 'react-icons/bs';
 import TimeRecordsTable from './TimeRecordsTable';
 import Loader from '../../../../Loader';
+import CreateTimeRecordModal from '../../../../Modal/CreateTimeRecord';
 
 type TimesheetsProps = {};
 
 const Timesheets: React.FC<TimesheetsProps> = () => {
   const [time, setTime] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [chartData, setChartData] = useState<any>([
     { id: 'Loading...', data: [{ x: 0, y: 0 }] },
   ]);
-  const { data, loading } = useQuery<IAllTimeRecords>(ALL_TIME_RECORDS);
+  const { data, loading, error } = useQuery<IAllTimeRecords>(ALL_TIME_RECORDS);
 
   useEffect(() => {
-    if (data) {
+    if (data && data?.getAllTimeRecords.length > 0) {
       const sortedData = data.getAllTimeRecords.sort(
         (a, b) => Number(a.createdAt) - Number(b.createdAt),
       );
@@ -34,6 +36,8 @@ const Timesheets: React.FC<TimesheetsProps> = () => {
         };
       });
       setChartData([{ id: 'time', data: [...newMappedData] }]);
+    } else {
+      setChartData([{ id: 'No Data', data: [{ x: 0, y: 0 }] }]);
     }
   }, [data]);
 
@@ -61,7 +65,7 @@ const Timesheets: React.FC<TimesheetsProps> = () => {
       clearInterval(interval);
     }
 
-    return () => clearInterval(interval); // Clean up the interval when the component unmounts
+    return () => clearInterval(interval);
   }, [isActive, time]);
 
   return (
@@ -84,7 +88,7 @@ const Timesheets: React.FC<TimesheetsProps> = () => {
           <Button onClick={handleReset} bg='#fabb18'>
             <MdOutlineRestartAlt size={30} />
           </Button>
-          <Button onClick={handleReset}>Add a new Record</Button>
+          <Button onClick={() => setIsOpen(true)}>Add a new Record</Button>
         </Flex>
       </Stack>
       <Flex justifyContent='center' alignItems='center' width='100%'>
@@ -101,11 +105,22 @@ const Timesheets: React.FC<TimesheetsProps> = () => {
         minH='20rem'
       >
         {data ? (
-          <TimeRecordsTable data={data} />
+          data?.getAllTimeRecords.length > 0 ? (
+            <TimeRecordsTable data={data} />
+          ) : (
+            <Box>NO RECORDS</Box>
+          )
+        ) : loading ? (
+          <Loader size={80} />
         ) : (
-          loading && <Loader size={80} />
+          error && <Box>{error.message}</Box>
         )}
       </Flex>
+      <CreateTimeRecordModal
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        time={time}
+      />
     </Box>
   );
 };
