@@ -1,32 +1,39 @@
 import { useQuery } from '@apollo/client';
-import { Box } from '@chakra-ui/react';
+import { Box, Button, Flex, Heading, Stack, Text } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { ALL_TIME_RECORDS } from '../../../../../graphql/Timesheets/query';
-import { ITime } from '../../../../../util/types';
+import { formatDate, formatTime } from '../../../../../util/formatDateAndTime';
+import { IAllTimeRecords, ITime } from '../../../../../util/types';
 import Today from '../../../../common/Today';
-import { format, parseISO } from 'date-fns';
 import TimeChart from './TimeChart';
+import { MdOutlineRestartAlt } from 'react-icons/md';
+import { HiPlay } from 'react-icons/hi2';
+import { BsFillPauseFill } from 'react-icons/bs';
+import TimeRecordsTable from './TimeRecordsTable';
+import Loader from '../../../../Loader';
 
 type TimesheetsProps = {};
 
 const Timesheets: React.FC<TimesheetsProps> = () => {
   const [time, setTime] = useState(0);
-  const [active, setIsActive] = useState(false);
+  const [isActive, setIsActive] = useState(false);
   const [chartData, setChartData] = useState<any>([
     { id: 'Loading...', data: [{ x: 0, y: 0 }] },
   ]);
-  const { data } = useQuery(ALL_TIME_RECORDS);
+  const { data, loading } = useQuery<IAllTimeRecords>(ALL_TIME_RECORDS);
 
   useEffect(() => {
     if (data) {
-      const mappedData = data.getAllTimeRecords.slice(-7).map((c: ITime) => {
+      const sortedData = data.getAllTimeRecords.sort(
+        (a, b) => Number(a.createdAt) - Number(b.createdAt),
+      );
+      const newMappedData = sortedData.slice(-7).map((c: ITime) => {
         return {
           x: formatDate(c.createdAt),
           y: formatTime(c.time),
         };
       });
-
-      setChartData([{ id: 'time', data: [...mappedData] }]);
+      setChartData([{ id: 'time', data: [...newMappedData] }]);
     }
   }, [data]);
 
@@ -40,41 +47,65 @@ const Timesheets: React.FC<TimesheetsProps> = () => {
 
   const handleReset = () => {
     setTime(0);
+    setIsActive(false);
   };
 
-  const formatDate = (date: string) => {
-    const UTCdate = new Date(Number(date)).toISOString();
-    const parsedDate = parseISO(UTCdate);
-    const year = format(parsedDate, 'yyyy');
-    const month = format(parsedDate, 'MM');
-    const day = format(parsedDate, 'dd');
-    const formattedDate = `${day}/${month}`;
-    return formattedDate;
-  };
+  useEffect(() => {
+    let interval: any;
 
-  const formatTime = (time: number) => {
-    const hours = Math.floor(time / 3600);
-    const minutes = Math.floor((time % 3600) / 60);
-    const seconds = Math.floor(time % 60);
+    if (isActive) {
+      interval = setInterval(() => {
+        setTime((prevTime) => prevTime + 1);
+      }, 1000);
+    } else if (!isActive && time !== 0) {
+      clearInterval(interval);
+    }
 
-    return `${hours}:${minutes}:${seconds}`;
-  };
+    return () => clearInterval(interval); // Clean up the interval when the component unmounts
+  }, [isActive, time]);
 
   return (
     <Box>
       <Today />
+      <Stack justifyContent='center' alignItems='center' marginY={10}>
+        <Text fontSize='1.2rem' fontWeight={700}>
+          Stopwatch
+        </Text>
+        <Heading fontSize='4rem' my={2}>
+          {formatTime(time)}
+        </Heading>
+        <Flex gap={2}>
+          <Button onClick={handleStart} bg='#fabb18'>
+            <HiPlay size={20} />
+          </Button>
+          <Button onClick={handlePause}>
+            <BsFillPauseFill size={30} />
+          </Button>
+          <Button onClick={handleReset} bg='#fabb18'>
+            <MdOutlineRestartAlt size={30} />
+          </Button>
+          <Button onClick={handleReset}>Add a new Record</Button>
+        </Flex>
+      </Stack>
+      <Flex justifyContent='center' alignItems='center' width='100%'>
+        <Box width='70%' height='20rem'>
+          <TimeChart data={chartData} />
+        </Box>
+      </Flex>
 
-      <Box width='70%' height='20rem'>
-        <TimeChart data={chartData} />
-      </Box>
-
-      <h1>Stopwatch</h1>
-      <p>{formatTime(time)}</p>
-      <div>
-        <button onClick={handleStart}>Start</button>
-        <button onClick={handlePause}>Pause</button>
-        <button onClick={handleReset}>Reset</button>
-      </div>
+      <Flex
+        width='100%'
+        my={10}
+        justifyContent='center'
+        alignItems='center'
+        minH='20rem'
+      >
+        {data ? (
+          <TimeRecordsTable data={data} />
+        ) : (
+          loading && <Loader size={80} />
+        )}
+      </Flex>
     </Box>
   );
 };

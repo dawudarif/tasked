@@ -1,10 +1,8 @@
 import { ResponsiveBump } from '@nivo/bump';
 
-//
 const TimeChart = ({ data }: any) => {
   return (
     <>
-      <h1>chart</h1>
       <ResponsiveBump
         data={data}
         colors={{ scheme: 'category10' }}
@@ -39,9 +37,9 @@ const TimeChart = ({ data }: any) => {
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: 'ranking',
+          legend: '',
           legendPosition: 'middle',
-          legendOffset: -40,
+          legendOffset: -60,
         }}
         margin={{ top: 40, right: 100, bottom: 40, left: 60 }}
         axisRight={null}

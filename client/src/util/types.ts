@@ -98,3 +98,15 @@ export interface ITime {
 export interface ITimesheet {
   getAllTimeRecords: Array<ITime>;
 }
+
+export interface ITimeRecord {
+  id: string;
+  time: number;
+  createdAt: string;
+  note: string;
+  updatedAt: string;
+}
+
+export interface IAllTimeRecords {
+  getAllTimeRecords: Array<ITimeRecord>;
+}

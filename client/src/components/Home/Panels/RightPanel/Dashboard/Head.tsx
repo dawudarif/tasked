@@ -1,8 +1,11 @@
 import Today from '../../../../common/Today';
 import { Box, Flex, Heading } from '@chakra-ui/react';
 import { BsFillPlayFill } from 'react-icons/bs';
+import { useNavigate } from 'react-router-dom';
 
 const Head = () => {
+  const router = useNavigate();
+
   return (
     <Flex justifyContent='space-between' alignItems='center'>
       <Today />
@@ -17,6 +20,9 @@ const Head = () => {
         height='max-content'
         width='max-content'
         marginTop={6}
+        shadow='md'
+        cursor='pointer'
+        onClick={() => router('/?menu=timesheets')}
       >
         <Heading fontSize='1.2rem'>Start Time Tracker</Heading>
         <Box
