@@ -11,3 +11,15 @@ export const CREATE_TIME_RECORD = gql`
     }
   }
 `;
+
+export const DELETE_RECORD = gql`
+  mutation deleteTimeRecord($input: ID!) {
+    deleteTimeRecord(input: $input) {
+      id
+      createdAt
+      note
+      time
+      updatedAt
+    }
+  }
+`;

@@ -21,6 +21,7 @@ const typeDefs = gql`
 
   type Mutation {
     createTimeRecord(input: CreateTimeRecordInput): Time!
+    deleteTimeRecord(input: ID!): Time!
   }
 `;
 

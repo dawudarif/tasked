@@ -70,6 +70,43 @@ const resolvers = {
         throw new Error(error.message);
       }
     },
+    deleteTimeRecord: async (
+      _: any,
+      args: {
+        input: string;
+      },
+      context: GraphQLContext,
+    ) => {
+      const { prisma, cookie } = context;
+      const recordId = args.input;
+
+      try {
+        const tokenCookie = cookie;
+        if (!tokenCookie) {
+          throw new Error('Not authenticated');
+        }
+        const findUser = await getUser(tokenCookie, prisma);
+        if (!findUser) {
+          throw new Error('User not found');
+        }
+
+        if (!recordId) {
+          throw new Error('Necessary data not provided');
+        }
+
+        const deleteTimeRecord = await prisma.time.delete({
+          where: {
+            id: recordId,
+            createdById: findUser.id,
+          },
+        });
+
+        return deleteTimeRecord;
+      } catch (error: any) {
+        console.log('deleteTimeRecord error', error);
+        throw new Error(error.message);
+      }
+    },
   },
 };
 
