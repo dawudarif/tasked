@@ -1,43 +1,32 @@
-import { Box } from '@chakra-ui/react';
 import { useQuery } from '@apollo/client';
+import { Box } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
-import Today from '../../../../common/Today';
 import { ALL_TIME_RECORDS } from '../../../../../graphql/Timesheets/query';
 import { ITime } from '../../../../../util/types';
-
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from 'recharts';
+import Today from '../../../../common/Today';
+import { format, parseISO } from 'date-fns';
+import TimeChart from './TimeChart';
 
 type TimesheetsProps = {};
 
 const Timesheets: React.FC<TimesheetsProps> = () => {
   const [time, setTime] = useState(0);
   const [active, setIsActive] = useState(false);
-  const [showChart, setShowChart] = useState(false);
-  const [chartData, setChartData] = useState<any>([]);
-  console.log(chartData);
-
+  const [chartData, setChartData] = useState<any>([
+    { id: 'Loading...', data: [{ x: 0, y: 0 }] },
+  ]);
   const { data } = useQuery(ALL_TIME_RECORDS);
 
   useEffect(() => {
     if (data) {
-      const mappedData = data.getAllTimeRecords.map((c: ITime) => {
+      const mappedData = data.getAllTimeRecords.slice(-7).map((c: ITime) => {
         return {
-          name: c.createdAt,
-          time: formatTime(c.time),
+          x: formatDate(c.createdAt),
+          y: formatTime(c.time),
         };
       });
-      console.log(mappedData);
 
-      setChartData(mappedData);
+      setChartData([{ id: 'time', data: [...mappedData] }]);
     }
   }, [data]);
 
@@ -53,6 +42,16 @@ const Timesheets: React.FC<TimesheetsProps> = () => {
     setTime(0);
   };
 
+  const formatDate = (date: string) => {
+    const UTCdate = new Date(Number(date)).toISOString();
+    const parsedDate = parseISO(UTCdate);
+    const year = format(parsedDate, 'yyyy');
+    const month = format(parsedDate, 'MM');
+    const day = format(parsedDate, 'dd');
+    const formattedDate = `${day}/${month}`;
+    return formattedDate;
+  };
+
   const formatTime = (time: number) => {
     const hours = Math.floor(time / 3600);
     const minutes = Math.floor((time % 3600) / 60);
@@ -65,22 +64,8 @@ const Timesheets: React.FC<TimesheetsProps> = () => {
     <Box>
       <Today />
 
-      <Box>
-        <ResponsiveContainer width='100%' height='100%'>
-          <LineChart width={300} height={100} data={chartData}>
-            <Line
-              type='monotone'
-              dataKey='time'
-              stroke='#8884d8'
-              strokeWidth={2}
-            />
-            <XAxis dataKey='name' />
-            <YAxis />
-            <CartesianGrid strokeDasharray='3 3' />
-            <Tooltip />
-            <Legend />
-          </LineChart>
-        </ResponsiveContainer>
+      <Box width='70%' height='20rem'>
+        <TimeChart data={chartData} />
       </Box>
 
       <h1>Stopwatch</h1>
