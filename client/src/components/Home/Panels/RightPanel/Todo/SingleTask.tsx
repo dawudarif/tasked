@@ -1,12 +1,8 @@
 import { useMutation } from '@apollo/client';
 import { useState } from 'react';
 import { UPDATE_TASK } from '../../../../../graphql/Task/mutations';
-import {
-  ALL_TASKS,
-  TASKS_IN_COLLECTION,
-} from '../../../../../graphql/Task/queries';
+import { ALL_TASKS } from '../../../../../graphql/Task/queries';
 import { ITask } from '../../../../../util/types';
-import UpdateTaskModal from '../../../../Modal/UpdateTaskModal';
 import TaskItem from '../../../../common/TaskItem';
 
 interface SingleTaskProps {
@@ -80,11 +76,6 @@ const SingleTask: React.FC<SingleTaskProps> = ({
         tasksLength={tasksLength}
         index={index}
         updateCheckbox={updateCheckbox}
-      />
-      <UpdateTaskModal
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-        task={task}
       />
     </>
   );

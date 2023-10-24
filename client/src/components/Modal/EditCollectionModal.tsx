@@ -12,6 +12,7 @@ import {
   ModalHeader,
   ModalOverlay,
   Text,
+  useToast,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { RiDeleteBin6Line } from 'react-icons/ri';
@@ -36,6 +37,7 @@ const EditCollectionModal: React.FC<EditCollectionModalProps> = ({
   onClose,
   collection,
 }) => {
+  const toast = useToast();
   const router = useNavigate();
   const [text, setText] = useState(collection.name);
   const [color, setColor] = useState(collection.color);
