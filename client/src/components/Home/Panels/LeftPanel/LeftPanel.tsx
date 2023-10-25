@@ -2,19 +2,23 @@ import { Box, Flex, Stack, Text } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { LuLayoutDashboard, LuTimer } from 'react-icons/lu';
-import { FcTodoList } from 'react-icons/fc';
+import { MdCollectionsBookmark } from 'react-icons/md';
+import { RiTodoLine } from 'react-icons/ri';
 import { IPanelItem } from '../../../../util/types';
 import CreateCollectionModal from '../../../Modal/CreateCollectionModal';
 import Collections from './Collections';
 import SingleItem from './SingleItem';
-import {
-  MdCollectionsBookmark,
-  MdOutlineCollectionsBookmark,
-} from 'react-icons/md';
-import { RiTodoLine } from 'react-icons/ri';
+import { useLocation } from 'react-router-dom';
 
 const LeftPanel: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const menu = params.get('menu');
+  const list = params.get('list');
+  const displayPanel = list || menu;
+
   const size = 20;
 
   const panelItems: Array<IPanelItem> = [
@@ -37,10 +41,12 @@ const LeftPanel: React.FC = () => {
 
   return (
     <Box
-      width={{ lg: '20%' }}
+      width={{ lg: '20%', md: '30%', base: '100%' }}
       minHeight='100vh'
       height='auto'
       background='white'
+      display={{ base: displayPanel ? 'none' : 'flex', md: 'flex' }}
+      flexDirection='column'
     >
       <Stack paddingY={8} marginX={2} width='96%'>
         {panelItems.map((item) => (

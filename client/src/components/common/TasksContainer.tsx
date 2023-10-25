@@ -21,11 +21,10 @@ const TasksContainer: React.FC<TasksContainerProps> = ({
   return (
     <>
       <Stack
-        width='80%'
+        width={{ lg: '80%', base: '95%' }}
         background='white'
         borderRadius='1rem'
         shadow='lg'
-        margin={0}
       >
         <Flex
           justifyContent='space-between'

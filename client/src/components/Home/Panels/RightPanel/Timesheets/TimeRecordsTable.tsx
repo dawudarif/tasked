@@ -21,21 +21,21 @@ const TimeRecordsTable: React.FC<TimeRecordsTableProps> = ({ data }) => {
   );
 
   return (
-    <TableContainer width='70%'>
+    <TableContainer width={{ base: '95%', lg: '70%' }}>
       <Table variant='unstyled'>
         <TableCaption>Time Records</TableCaption>
         <Thead>
           <Tr color='white' bg='#333333' fontSize='1.1rem' fontWeight={600}>
-            <Th px={10} py={6}>
+            <Th px={{ lg: '10', base: '5' }} py={{ lg: '6', base: '3' }}>
               sr.
             </Th>
-            <Th px={10} py={6}>
+            <Th px={{ lg: '10', base: '5' }} py={{ lg: '6', base: '3' }}>
               Note
             </Th>
-            <Th px={10} py={6}>
+            <Th px={{ lg: '10', base: '5' }} py={{ lg: '6', base: '3' }}>
               Time Record
             </Th>
-            <Th px={10} py={6}>
+            <Th px={{ lg: '10', base: '5' }} py={{ lg: '6', base: '3' }}>
               Created At
             </Th>
           </Tr>

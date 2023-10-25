@@ -15,12 +15,12 @@ const Today = () => {
   }, []);
 
   return (
-    <Stack alignItems='baseline' margin={8}>
-      <Heading>Today</Heading>
+    <Stack alignItems='baseline' margin={{ lg: '8', base: '4' }}>
+      <Heading fontSize={{ lg: '3rem', base: '2rem' }}>Today</Heading>
       <Text
         textTransform='capitalize'
         paddingRight={4}
-        fontSize='1.2rem'
+        fontSize={{ lg: '1.2rem', base: '1rem' }}
         fontWeight={600}
       >
         {currentTime}

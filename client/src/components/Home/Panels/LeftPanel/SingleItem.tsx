@@ -1,5 +1,4 @@
 import { Flex, Text } from '@chakra-ui/react';
-import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 interface SingleItemProps {

@@ -28,7 +28,7 @@ const DeleteTimeRecordModal: React.FC<DeleteTimeRecordModalProps> = ({
   recordId,
   recordName,
 }) => {
-  const [deleteRecord] = useMutation(DELETE_RECORD, {
+  const [deleteRecord, { data }] = useMutation(DELETE_RECORD, {
     optimisticResponse: {
       __typename: 'Mutation',
       deleteRecord: {

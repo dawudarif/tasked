@@ -17,14 +17,6 @@ const TimeChart = ({ data }: any) => {
         pointBorderWidth={3}
         activePointBorderWidth={3}
         pointBorderColor={{ from: 'serie.color' }}
-        axisTop={{
-          tickSize: 5,
-          tickPadding: 5,
-          tickRotation: 0,
-          legend: '',
-          legendPosition: 'middle',
-          legendOffset: -36,
-        }}
         axisBottom={{
           tickSize: 5,
           tickPadding: 5,
@@ -43,6 +35,7 @@ const TimeChart = ({ data }: any) => {
         }}
         margin={{ top: 40, right: 100, bottom: 40, left: 60 }}
         axisRight={null}
+        axisTop={null}
       />
     </>
   );

@@ -7,6 +7,24 @@ export interface IUserProfile {
   };
 }
 
+export interface ILoginArgs {
+  input: {
+    email: string;
+    password: string;
+  };
+}
+export interface ILoginResponse {
+  loginUser: {
+    email: string;
+    name: string;
+    username: string;
+  };
+}
+
+export interface ILogoutUser {
+  logoutUser: { message: string; success: boolean };
+}
+
 export interface IPanelItem {
   id: number;
   name: string;

@@ -1,20 +1,27 @@
 import { useMutation } from '@apollo/client';
-import { Button, Heading, Input, Stack, Text } from '@chakra-ui/react';
-import React, { FormEvent, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import {
+  Button,
+  Heading,
+  Input,
+  Stack,
+  Text,
+  useToast,
+} from '@chakra-ui/react';
+import React, { FormEvent, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { LOGIN_USER } from '../graphql/User/mutations';
+import { ILoginArgs, ILoginResponse } from '../util/types';
 
 const Login = () => {
-  const router = useNavigate();
+  const toast = useToast();
 
   const [loginData, setLoginData] = useState({
     email: '',
     password: '',
   });
 
-  const [loginUser, { data, loading: loginLoading, error }] = useMutation(
-    LOGIN_USER,
-    {
+  const [loginUser, { data, loading: loginLoading, error: loginError }] =
+    useMutation<ILoginResponse, ILoginArgs>(LOGIN_USER, {
       variables: {
         input: {
           email: loginData.email,
@@ -24,8 +31,7 @@ const Login = () => {
       onCompleted: () => {
         redirectToRoot();
       },
-    },
-  );
+    });
 
   const handleLoginInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLoginData({
@@ -43,6 +49,33 @@ const Login = () => {
   function redirectToRoot() {
     window.location.href = '/?menu=dashboard';
   }
+
+  useEffect(() => {
+    if (loginError?.message) {
+      toast({
+        title: 'Login Unsuccessful',
+        description: loginError?.message,
+        status: 'error',
+        duration: 1000,
+        isClosable: true,
+        position: 'top-right',
+      });
+    }
+  }, [loginError]);
+
+  useEffect(() => {
+    if (data?.loginUser) {
+      toast({
+        title: 'Login Successful',
+        description: `You've been logged in as @${data?.loginUser.username}`,
+        status: 'success',
+        duration: 1000,
+        isClosable: true,
+        position: 'top-right',
+      });
+    }
+    return;
+  }, [data?.loginUser]);
 
   return (
     <Stack
@@ -63,7 +96,8 @@ const Login = () => {
             width='100%'
             border='2px solid #5555'
             paddingY={6}
-            fontSize='1.1em'
+            fontSize='1rem'
+            fontWeight={600}
             value={loginData.email}
             onChange={handleLoginInputs}
           />
@@ -75,7 +109,8 @@ const Login = () => {
             width='100%'
             border='2px solid #5555'
             paddingY={6}
-            fontSize='1.1em'
+            fontSize='1rem'
+            fontWeight={600}
             value={loginData.password}
             onChange={handleLoginInputs}
           />

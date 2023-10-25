@@ -7,7 +7,7 @@ const Head = () => {
   const router = useNavigate();
 
   return (
-    <Flex justifyContent='space-between' alignItems='center'>
+    <Flex justifyContent='space-between' alignItems='center' flexWrap='wrap'>
       <Today />
       <Flex
         justifyContent='center'
@@ -17,6 +17,7 @@ const Head = () => {
         borderRadius='1.5rem'
         paddingY={4}
         paddingX={10}
+        mx={8}
         height='max-content'
         width='max-content'
         marginTop={6}

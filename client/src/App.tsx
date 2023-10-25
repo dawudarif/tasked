@@ -14,7 +14,7 @@ function App() {
 
   return (
     <>
-      <Header name={data?.userProfile.name} />
+      <Header name={data?.userProfile.name} email={data?.userProfile.email} />
       <Routes>
         <Route
           index

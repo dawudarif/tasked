@@ -37,7 +37,6 @@ const EditCollectionModal: React.FC<EditCollectionModalProps> = ({
   onClose,
   collection,
 }) => {
-  const toast = useToast();
   const router = useNavigate();
   const [text, setText] = useState(collection.name);
   const [color, setColor] = useState(collection.color);

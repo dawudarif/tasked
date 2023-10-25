@@ -13,9 +13,7 @@ import TimeRecordsTable from './TimeRecordsTable';
 import Loader from '../../../../Loader';
 import CreateTimeRecordModal from '../../../../Modal/CreateTimeRecord';
 
-type TimesheetsProps = {};
-
-const Timesheets: React.FC<TimesheetsProps> = () => {
+const Timesheets: React.FC = () => {
   const [time, setTime] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [isActive, setIsActive] = useState(false);
@@ -75,10 +73,11 @@ const Timesheets: React.FC<TimesheetsProps> = () => {
         <Text fontSize='1.2rem' fontWeight={700}>
           Stopwatch
         </Text>
-        <Heading fontSize='4rem' my={2}>
+        <Heading fontSize={{ lg: '4rem', base: '3rem' }} my={2}>
           {formatTime(time)}
         </Heading>
-        <Flex gap={2}>
+
+        <Flex gap={2} flexWrap='wrap' justifyContent='center'>
           <Button onClick={handleStart} bg='#fabb18'>
             <HiPlay size={20} />
           </Button>
@@ -92,9 +91,12 @@ const Timesheets: React.FC<TimesheetsProps> = () => {
         </Flex>
       </Stack>
       <Flex justifyContent='center' alignItems='center' width='100%'>
-        <Box width='70%' height='20rem'>
+        <Flex
+          width={{ base: '100%', lg: '70%' }}
+          height={{ lg: '20rem', base: '15rem' }}
+        >
           <TimeChart data={chartData} />
-        </Box>
+        </Flex>
       </Flex>
 
       <Flex

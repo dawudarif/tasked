@@ -43,7 +43,7 @@ const CreateTimeRecordModal: React.FC<CreateTimeRecordModalProps> = ({
   const [seconds, setSeconds] = useState(0);
   const [text, setText] = useState('');
 
-  const [createTimeRecord, { data, error }] = useMutation<
+  const [createTimeRecord] = useMutation<
     ICreateTimeRecord,
     ICreateTimeRecordArgs
   >(CREATE_TIME_RECORD, {

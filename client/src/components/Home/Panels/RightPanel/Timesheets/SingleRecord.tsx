@@ -20,21 +20,21 @@ const SingleRecord: React.FC<SingleRecordProps> = ({ item, index }) => {
       <Tr
         borderBottom='2px'
         borderColor='#333333'
-        fontSize='1rem'
+        fontSize={{ lg: '1rem', base: '.8rem' }}
         fontWeight={600}
         _hover={{ bg: '#333333', color: 'white' }}
         onDoubleClick={() => setIsOpen(true)}
       >
-        <Td px={10} py={6}>
+        <Td px={{ lg: '10', base: '5' }} py={{ lg: '6', base: '3' }}>
           {index + 1}
         </Td>
-        <Td px={10} py={6}>
+        <Td px={{ lg: '10', base: '5' }} py={{ lg: '6', base: '3' }}>
           {item.note}
         </Td>
-        <Td px={10} py={6} isNumeric>
+        <Td px={{ lg: '10', base: '5' }} py={{ lg: '6', base: '3' }} isNumeric>
           {formatTime(item.time)}
         </Td>
-        <Td px={10} py={6}>
+        <Td px={{ lg: '10', base: '5' }} py={{ lg: '6', base: '3' }}>
           {formatDateLong(item.createdAt)}
         </Td>
       </Tr>
