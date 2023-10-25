@@ -3,7 +3,7 @@ import { Box, Button, Flex, Heading, Stack, Text } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { ALL_TIME_RECORDS } from '../../../../../graphql/Timesheets/query';
 import { formatDate, formatTime } from '../../../../../util/formatDateAndTime';
-import { IAllTimeRecords, ITime } from '../../../../../util/types';
+import { IAllTimeRecords, ITime } from '../../../../../../types/types';
 import Today from '../../../../common/Today';
 import TimeChart from './TimeChart';
 import { MdOutlineRestartAlt } from 'react-icons/md';

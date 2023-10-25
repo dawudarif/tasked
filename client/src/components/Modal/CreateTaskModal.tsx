@@ -13,7 +13,7 @@ import {
 import { useState } from 'react';
 import { CREATE_TASK } from '../../graphql/Task/mutations';
 import { TASKS_IN_COLLECTION } from '../../graphql/Task/queries';
-import { ICreateTask, ICreateTaskArgs } from '../../util/types';
+import { ICreateTask, ICreateTaskArgs } from '../../../types/types';
 
 interface CreateTaskModalProps {
   collectionId: string | null;
@@ -87,7 +87,7 @@ const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
     <>
       <Modal onClose={onClose} size={'2xl'} isOpen={isOpen}>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent mx={1}>
           <ModalHeader>Create Task</ModalHeader>
           <ModalCloseButton />
           <ModalBody>

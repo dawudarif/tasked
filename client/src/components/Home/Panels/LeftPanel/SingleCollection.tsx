@@ -2,7 +2,7 @@ import { Box, Flex, Text } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { collectionIcons } from '../../../../data/icons';
-import { ICollectionItem } from '../../../../util/types';
+import { ICollectionItem } from '../../../../../types/types';
 import EditCollectionModal from '../../../Modal/EditCollectionModal';
 
 interface ISingleCollection {

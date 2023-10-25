@@ -10,7 +10,7 @@ import {
 import React, { FormEvent, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { LOGIN_USER } from '../graphql/User/mutations';
-import { ILoginArgs, ILoginResponse } from '../util/types';
+import { ILoginArgs, ILoginResponse } from '../../types/types';
 
 const Login = () => {
   const toast = useToast();

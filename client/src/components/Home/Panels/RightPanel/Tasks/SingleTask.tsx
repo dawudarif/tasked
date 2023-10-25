@@ -2,7 +2,7 @@ import { useMutation } from '@apollo/client';
 import { useState } from 'react';
 import { UPDATE_TASK } from '../../../../../graphql/Task/mutations';
 import { TASKS_IN_COLLECTION } from '../../../../../graphql/Task/queries';
-import { ITask } from '../../../../../util/types';
+import { ITask } from '../../../../../../types/types';
 import UpdateTaskModal from '../../../../Modal/UpdateTaskModal';
 import TaskItem from '../../../../common/TaskItem';
 

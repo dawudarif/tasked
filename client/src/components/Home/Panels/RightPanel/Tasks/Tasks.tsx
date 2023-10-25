@@ -3,10 +3,10 @@ import Today from '../../../../common/Today';
 import { Box, Button, Flex, Text } from '@chakra-ui/react';
 import { useLazyQuery } from '@apollo/client';
 import { TASKS_IN_COLLECTION } from '../../../../../graphql/Task/queries';
-import { IGetTasks, IGetTaskArgs } from '../../../../../util/types';
+import { IGetTasks, IGetTaskArgs } from '../../../../../../types/types';
 import CreateTaskModal from '../../../../Modal/CreateTaskModal';
 import Loader from '../../../../Loader';
-import TasksContainer from '../../../../common/TasksContainer';
+import TasksContainer from './TasksContainer';
 
 interface TasksProps {
   collectionId: string | null;

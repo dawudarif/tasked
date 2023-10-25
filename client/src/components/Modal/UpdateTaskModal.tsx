@@ -13,7 +13,7 @@ import {
 import { useState } from 'react';
 import { DELETE_TASK, UPDATE_TASK } from '../../graphql/Task/mutations';
 import { RiDeleteBin6Line } from 'react-icons/ri';
-import { ITask } from '../../util/types';
+import { ITask } from '../../../types/types';
 import { TASKS_IN_COLLECTION } from '../../graphql/Task/queries';
 
 interface UpdateTaskModalProps {
@@ -144,7 +144,7 @@ const UpdateTaskModal: React.FC<UpdateTaskModalProps> = ({
     <>
       <Modal onClose={onClose} size={'2xl'} isOpen={isOpen}>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent mx={1}>
           <ModalHeader>Update Task</ModalHeader>
           <ModalCloseButton />
           <ModalBody>

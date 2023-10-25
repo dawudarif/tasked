@@ -1,10 +1,9 @@
 import { Flex, Checkbox, Text } from '@chakra-ui/react';
-import React from 'react';
-import { ITask } from '../../util/types';
+import { ITask } from '../../../types/types';
 
 interface TaskItemProps {
   task: ITask;
-  setIsOpen: (boolean: boolean) => void;
+  setIsOpen?: (boolean: boolean) => void;
   tasksLength: number;
   index: number;
   updateCheckbox: (boolean: boolean) => void;
@@ -29,7 +28,9 @@ const TaskItem: React.FC<TaskItemProps> = ({
       px={6}
       py={2}
       cursor='pointer'
-      onDoubleClick={() => setIsOpen(true)}
+      onDoubleClick={() => {
+        setIsOpen && setIsOpen(true);
+      }}
     >
       <Checkbox
         isChecked={task.completed}
@@ -38,7 +39,12 @@ const TaskItem: React.FC<TaskItemProps> = ({
         onChange={() => updateCheckbox(task.completed === true ? false : true)}
       />
 
-      <Text fontSize='1rem' fontWeight={600}>
+      <Text
+        fontSize='1rem'
+        fontWeight={600}
+        textDecoration={task.completed ? 'line-through' : 'none'}
+        color={task.completed ? '#333333a8' : 'black'}
+      >
         {task.body}
       </Text>
     </Flex>

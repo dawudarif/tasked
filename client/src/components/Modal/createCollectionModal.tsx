@@ -18,7 +18,7 @@ import { colors } from '../../data/colors';
 import { collectionIcons } from '../../data/icons';
 import { CREATE_COLLECTION } from '../../graphql/Collection/mutations';
 import { GET_ALL_COLLECTIONS } from '../../graphql/Collection/queries';
-import { ICreateCollection, ICreateCollectionArgs } from '../../util/types';
+import { ICreateCollection, ICreateCollectionArgs } from '../../../types/types';
 
 interface CreateCollectionModalProps {
   isOpen: boolean;
@@ -85,7 +85,7 @@ const CreateCollectionModal: React.FC<CreateCollectionModalProps> = ({
     <>
       <Modal size='2xl' isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent mx={1}>
           <ModalHeader>Create Collection</ModalHeader>
           <ModalCloseButton />
           <ModalBody>

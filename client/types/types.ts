@@ -21,6 +21,23 @@ export interface ILoginResponse {
   };
 }
 
+export interface IRegisterUser {
+  registerUser: {
+    email: string;
+    name: string;
+    username: string;
+  };
+}
+
+export interface IRegisterUserArgs {
+  input: {
+    email: string;
+    password: string;
+    name: string;
+    username: string;
+  };
+}
+
 export interface ILogoutUser {
   logoutUser: { message: string; success: boolean };
 }
@@ -140,4 +157,8 @@ export interface TimeRecord {
 
 export interface ICreateTimeRecord {
   createTimeRecord: TimeRecord;
+}
+
+export interface IAllTasks {
+  getAllTasks: Array<ITask>;
 }

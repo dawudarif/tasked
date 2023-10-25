@@ -1,13 +1,14 @@
+import { useQuery } from '@apollo/client';
+import { Box, Flex, Text } from '@chakra-ui/react';
 import React from 'react';
 import { ALL_TASKS } from '../../../../../graphql/Task/queries';
-import { useQuery } from '@apollo/client';
-import { Flex, Box, Text } from '@chakra-ui/react';
+import { IAllTasks } from '../../../../../../types/types';
 import Loader from '../../../../Loader';
+import TasksContainer from './TasksContainer';
 import Today from '../../../../common/Today';
-import TasksContainer from '../../../../common/TasksContainer';
 
 const Todo: React.FC = () => {
-  const { data, loading } = useQuery(ALL_TASKS);
+  const { data, loading } = useQuery<IAllTasks>(ALL_TASKS);
 
   return (
     <>

@@ -12,10 +12,10 @@ import {
   ModalHeader,
   ModalOverlay,
   Text,
-  useToast,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { RiDeleteBin6Line } from 'react-icons/ri';
+import { useNavigate } from 'react-router-dom';
 import { colors } from '../../data/colors';
 import { collectionIcons } from '../../data/icons';
 import {
@@ -23,8 +23,7 @@ import {
   UPDATE_COLLECTION,
 } from '../../graphql/Collection/mutations';
 import { GET_ALL_COLLECTIONS } from '../../graphql/Collection/queries';
-import { ICollectionItem, INewCollection } from '../../util/types';
-import { useNavigate } from 'react-router-dom';
+import { ICollectionItem, INewCollection } from '../../../types/types';
 
 interface EditCollectionModalProps {
   isOpen: boolean;
@@ -141,7 +140,7 @@ const EditCollectionModal: React.FC<EditCollectionModalProps> = ({
     <>
       <Modal size='2xl' isOpen={isOpen} onClose={onClose}>
         <ModalOverlay bgColor='blackAlpha.100' />
-        <ModalContent>
+        <ModalContent mx={1}>
           <ModalHeader>Edit Collection</ModalHeader>
           <ModalCloseButton />
           <ModalBody>

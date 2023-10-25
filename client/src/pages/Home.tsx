@@ -5,7 +5,7 @@ import { GET_USER_PROFILE } from '../graphql/User/queries';
 import Loader from '../components/Loader';
 import Login from './Login';
 import HomeWrapper from '../components/Home/HomeWrapper';
-import { IUserProfile } from '../util/types';
+import { IUserProfile } from '../../types/types';
 import { Box, Flex } from '@chakra-ui/react';
 
 interface IHome {

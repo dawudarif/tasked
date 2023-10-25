@@ -17,7 +17,7 @@ import { useNavigate } from 'react-router-dom';
 import { LOGOUT_USER } from '../graphql/User/mutations';
 import HelpModal from './Modal/HelpModal';
 import { useState, useEffect } from 'react';
-import { ILogoutUser } from '../util/types';
+import { ILogoutUser } from '../../types/types';
 
 interface IHeader {
   name?: string;
@@ -27,13 +27,15 @@ interface IHeader {
 const Header: React.FC<IHeader> = ({ name, email }) => {
   const router = useNavigate();
   const toast = useToast();
-  const nameInitials = name?.substring(0, 2).toUpperCase();
+
   const [isOpen, setIsOpen] = useState(false);
+  const [userName, setUserName] = useState<string | undefined>('?');
+  const [userEmail, setUserEmail] = useState<string | undefined>('');
 
   const [logoutUser, { data }] = useMutation<ILogoutUser, {}>(LOGOUT_USER);
 
-  const handleLogout = () => {
-    logoutUser();
+  const handleLogout = async () => {
+    await logoutUser();
     router('/login');
   };
 
@@ -47,8 +49,17 @@ const Header: React.FC<IHeader> = ({ name, email }) => {
         isClosable: true,
         position: 'top-right',
       });
+
+      setUserEmail(undefined);
+      setUserName('?');
     }
   }, [data?.logoutUser]);
+
+  useEffect(() => {
+    const nameInitials = name?.substring(0, 2).toUpperCase();
+    setUserEmail(email);
+    setUserName(nameInitials);
+  }, [email, name]);
 
   return (
     <>
@@ -87,32 +98,34 @@ const Header: React.FC<IHeader> = ({ name, email }) => {
               _hover={{ boxShadow: 'md', transition: 'all .5s' }}
               cursor='pointer'
             >
-              {nameInitials === undefined ? '?' : nameInitials}
+              {userName === undefined ? '?' : userName}
             </Button>
           </PopoverTrigger>
           <PopoverContent>
             <PopoverBody>
               <Stack>
                 <Box>
-                  <Text fontWeight={700} fontSize='1rem' padding='.7rem'>
-                    {email}
-                  </Text>
-
-                  <Link
-                    href='/?menu=dashboard'
-                    textDecoration='none'
-                    _hover={{ textDecoration: 'none' }}
-                  >
-                    <Text
-                      padding='.5rem'
-                      _hover={{ bg: 'brand.300' }}
-                      borderRadius={10}
-                      fontWeight={600}
-                    >
-                      Home
-                    </Text>
-                  </Link>
-
+                  {userName && (
+                    <>
+                      <Text fontWeight={700} fontSize='1rem' padding='.7rem'>
+                        {userEmail}
+                      </Text>
+                      <Link
+                        href='/?menu=dashboard'
+                        textDecoration='none'
+                        _hover={{ textDecoration: 'none' }}
+                      >
+                        <Text
+                          padding='.5rem'
+                          _hover={{ bg: 'brand.300' }}
+                          borderRadius={10}
+                          fontWeight={600}
+                        >
+                          Home
+                        </Text>
+                      </Link>
+                    </>
+                  )}
                   <Text
                     onClick={() => setIsOpen(true)}
                     padding='.7rem'
@@ -124,16 +137,49 @@ const Header: React.FC<IHeader> = ({ name, email }) => {
                     Help
                   </Text>
 
-                  <Text
-                    onClick={handleLogout}
-                    padding='.7rem'
-                    _hover={{ bg: 'brand.300' }}
-                    borderRadius={10}
-                    fontWeight={600}
-                    cursor='pointer'
-                  >
-                    Logout
-                  </Text>
+                  {userName ? (
+                    <Text
+                      onClick={handleLogout}
+                      padding='.7rem'
+                      _hover={{ bg: 'brand.300' }}
+                      borderRadius={10}
+                      fontWeight={600}
+                      cursor='pointer'
+                    >
+                      Logout
+                    </Text>
+                  ) : (
+                    <>
+                      <Link
+                        href='/login'
+                        textDecoration='none'
+                        _hover={{ textDecoration: 'none' }}
+                      >
+                        <Text
+                          padding='.5rem'
+                          _hover={{ bg: 'brand.300' }}
+                          borderRadius={10}
+                          fontWeight={600}
+                        >
+                          Login
+                        </Text>
+                      </Link>
+                      <Link
+                        href='/register'
+                        textDecoration='none'
+                        _hover={{ textDecoration: 'none' }}
+                      >
+                        <Text
+                          padding='.5rem'
+                          _hover={{ bg: 'brand.300' }}
+                          borderRadius={10}
+                          fontWeight={600}
+                        >
+                          Register
+                        </Text>
+                      </Link>
+                    </>
+                  )}
                 </Box>
               </Stack>
             </PopoverBody>

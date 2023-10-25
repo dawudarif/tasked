@@ -4,7 +4,7 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import { LuLayoutDashboard, LuTimer } from 'react-icons/lu';
 import { MdCollectionsBookmark } from 'react-icons/md';
 import { RiTodoLine } from 'react-icons/ri';
-import { IPanelItem } from '../../../../util/types';
+import { IPanelItem } from '../../../../../types/types';
 import CreateCollectionModal from '../../../Modal/CreateCollectionModal';
 import Collections from './Collections';
 import SingleItem from './SingleItem';

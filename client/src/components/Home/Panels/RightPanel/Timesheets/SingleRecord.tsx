@@ -5,7 +5,7 @@ import {
   formatTime,
   formatDateLong,
 } from '../../../../../util/formatDateAndTime';
-import { ITimeRecord } from '../../../../../util/types';
+import { ITimeRecord } from '../../../../../../types/types';
 
 type SingleRecordProps = {
   item: ITimeRecord;

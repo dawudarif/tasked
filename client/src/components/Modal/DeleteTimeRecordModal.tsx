@@ -1,19 +1,19 @@
+import { useMutation } from '@apollo/client';
 import {
   Button,
   Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
   ModalBody,
+  ModalCloseButton,
+  ModalContent,
   ModalFooter,
+  ModalHeader,
+  ModalOverlay,
   Text,
 } from '@chakra-ui/react';
 import React from 'react';
-import { ALL_TIME_RECORDS } from '../../graphql/Timesheets/query';
 import { DELETE_RECORD } from '../../graphql/Timesheets/mutation';
-import { useMutation } from '@apollo/client';
-import { ITime } from '../../util/types';
+import { ALL_TIME_RECORDS } from '../../graphql/Timesheets/query';
+import { ITime } from '../../../types/types';
 
 interface DeleteTimeRecordModalProps {
   isOpen: boolean;
@@ -28,7 +28,7 @@ const DeleteTimeRecordModal: React.FC<DeleteTimeRecordModalProps> = ({
   recordId,
   recordName,
 }) => {
-  const [deleteRecord, { data }] = useMutation(DELETE_RECORD, {
+  const [deleteRecord] = useMutation(DELETE_RECORD, {
     optimisticResponse: {
       __typename: 'Mutation',
       deleteRecord: {
@@ -73,7 +73,7 @@ const DeleteTimeRecordModal: React.FC<DeleteTimeRecordModalProps> = ({
       <Modal onClose={onClose} isOpen={isOpen} isCentered>
         <ModalCloseButton />
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent mx={1}>
           <ModalHeader>Delete Record</ModalHeader>
           <ModalCloseButton />
           <ModalBody>

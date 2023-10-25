@@ -18,7 +18,7 @@ const Dashboard: React.FC = () => {
           width='max-content'
           marginY={4}
           marginX={8}
-          padding={6}
+          padding={4}
           cursor='pointer'
           shadow='md'
           _hover={{ scale: 2 }}
@@ -39,7 +39,7 @@ const Dashboard: React.FC = () => {
           width='max-content'
           marginY={4}
           marginX={8}
-          padding={6}
+          padding={4}
           cursor='pointer'
           shadow='md'
           onClick={() => router('/?menu=todo')}

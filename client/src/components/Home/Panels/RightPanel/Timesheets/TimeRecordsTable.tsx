@@ -8,7 +8,7 @@ import {
   Tr,
 } from '@chakra-ui/react';
 import React from 'react';
-import { IAllTimeRecords } from '../../../../../util/types';
+import { IAllTimeRecords } from '../../../../../../types/types';
 import SingleRecord from './SingleRecord';
 
 type TimeRecordsTableProps = {

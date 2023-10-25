@@ -1,7 +1,7 @@
 import { useLazyQuery, useQuery } from '@apollo/client';
 import { Stack } from '@chakra-ui/react';
 import { GET_ALL_COLLECTIONS } from '../../../../graphql/Collection/queries';
-import { ICollection } from '../../../../util/types';
+import { ICollection } from '../../../../../types/types';
 import SingleCollection from './SingleCollection';
 import { useEffect } from 'react';
 

@@ -4,7 +4,6 @@ import Dashboard from './RightPanel/Dashboard/Dashboard';
 import Tasks from './RightPanel/Tasks/Tasks';
 import Todo from './RightPanel/Todo/Todo';
 import Timesheets from './RightPanel/Timesheets/Timesheets';
-import { AiOutlineRollback } from 'react-icons/ai';
 import { IoChevronBack } from 'react-icons/io5';
 
 const MainPanel: React.FC = () => {

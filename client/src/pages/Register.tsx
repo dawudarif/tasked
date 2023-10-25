@@ -1,11 +1,19 @@
 import { useMutation } from '@apollo/client';
-import { Button, Heading, Input, Stack, Text } from '@chakra-ui/react';
-import React, { FormEvent, useState } from 'react';
+import {
+  Button,
+  Heading,
+  Input,
+  Stack,
+  Text,
+  useToast,
+} from '@chakra-ui/react';
+import React, { FormEvent, useState, useEffect } from 'react';
 import { REGISTER_USER } from '../graphql/User/mutations';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { IRegisterUser, IRegisterUserArgs } from '../../types/types';
 
 const Register = () => {
-  const router = useNavigate();
+  const toast = useToast();
 
   const [registerData, setRegisterData] = useState({
     email: '',
@@ -14,22 +22,24 @@ const Register = () => {
     username: '',
   });
 
-  const [registerUser, { loading: registerLoading }] = useMutation(
-    REGISTER_USER,
-    {
-      variables: {
-        input: {
-          email: registerData.email,
-          password: registerData.password,
-          name: registerData.name,
-          username: registerData.username,
-        },
-      },
-      onCompleted: () => {
-        redirectToRoot();
+  const [registerUser, { data, loading: registerLoading, error }] = useMutation<
+    IRegisterUser,
+    IRegisterUserArgs
+  >(REGISTER_USER, {
+    variables: {
+      input: {
+        email: registerData.email,
+        password: registerData.password,
+        name: registerData.name,
+        username: registerData.username,
       },
     },
-  );
+    onCompleted: () => {
+      redirectToRoot();
+    },
+  });
+
+  console.log(data, error);
 
   const handleLoginInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRegisterData({
@@ -47,6 +57,33 @@ const Register = () => {
   function redirectToRoot() {
     window.location.href = '/?menu=dashboard';
   }
+
+  useEffect(() => {
+    if (error?.message) {
+      toast({
+        title: 'Register Unsuccessful',
+        description: error?.message,
+        status: 'error',
+        duration: 1000,
+        isClosable: true,
+        position: 'top-right',
+      });
+    }
+  }, [error]);
+
+  useEffect(() => {
+    if (data?.registerUser) {
+      toast({
+        title: 'Register Successful',
+        description: `You've been registered as @${data?.registerUser.email}`,
+        status: 'success',
+        duration: 1000,
+        isClosable: true,
+        position: 'top-right',
+      });
+    }
+    return;
+  }, [data?.registerUser]);
 
   return (
     <Stack

@@ -1,9 +1,9 @@
 import { Box, Flex, Stack, Text } from '@chakra-ui/react';
 import { useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
-import { ITask } from '../../util/types';
-import SingleTask from '../Home/Panels/RightPanel/Tasks/SingleTask';
-import CreateTaskModal from '../Modal/CreateTaskModal';
+import { ITask } from '../../../../../../types/types';
+import CreateTaskModal from '../../../../Modal/CreateTaskModal';
+import SingleTask from './SingleTask';
 
 interface TasksContainerProps {
   tasks: ITask[];

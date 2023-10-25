@@ -1,15 +1,12 @@
 import {
   Modal,
-  ModalCloseButton,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
   ModalBody,
+  ModalCloseButton,
+  ModalContent,
   ModalFooter,
-  Button,
+  ModalHeader,
+  ModalOverlay,
   Text,
-  List,
-  ListItem,
 } from '@chakra-ui/react';
 
 interface HelpModalProps {
@@ -22,7 +19,7 @@ const HelpModal: React.FC<HelpModalProps> = ({ isOpen, onClose }) => {
     <Modal onClose={onClose} isOpen={isOpen} isCentered>
       <ModalCloseButton />
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent mx={2}>
         <ModalHeader>Help</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
@@ -34,6 +31,13 @@ const HelpModal: React.FC<HelpModalProps> = ({ isOpen, onClose }) => {
           </Text>
           <Text fontWeight={600} fontSize='1rem'>
             3. Double click on any time record to edit or delete it.
+          </Text>
+          <Text fontWeight={600} fontSize='1rem'>
+            4. Tasks can only be edited and deleted from their respective
+            collection.
+          </Text>
+          <Text fontWeight={600} fontSize='1rem'>
+            5. In the Todo menu you can only check and uncheck the tasks.
           </Text>
         </ModalBody>
         <ModalFooter></ModalFooter>
