@@ -85,14 +85,21 @@ const Login = () => {
       alignItems='center'
       gap={8}
     >
-      <Stack justifyContent='center' alignItems='center' width='30%' gap={6}>
-        <Heading opacity={0.8}>LOGIN</Heading>
+      <Stack
+        justifyContent='center'
+        alignItems='center'
+        width={{ lg: '30%', base: '90%' }}
+        gap={6}
+      >
+        <Heading color='brand.100'>LOGIN</Heading>
         <form onSubmit={handleLoginForm}>
           <Input
             type='email'
             name='email'
             placeholder='example@example.com'
             marginY={2}
+            color='#333333a7'
+            _placeholder={{ color: '#5555' }}
             width='100%'
             border='2px solid #5555'
             paddingY={6}
@@ -106,6 +113,8 @@ const Login = () => {
             name='password'
             placeholder='Password'
             marginY={2}
+            color='#333333a7'
+            _placeholder={{ color: '#5555' }}
             width='100%'
             border='2px solid #5555'
             paddingY={6}
@@ -131,10 +140,10 @@ const Login = () => {
             <Text
               color='blue.700'
               textDecoration='underline'
-              fontSize='1.2rem'
+              fontSize='1rem'
               textAlign='center'
             >
-              Not a user? Register here.
+              Not a user? Register here
             </Text>
           </Link>
         </form>

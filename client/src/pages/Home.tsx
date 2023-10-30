@@ -1,12 +1,9 @@
-import { ApolloError, useMutation, useQuery } from '@apollo/client';
-import { useEffect } from 'react';
-import { LOGOUT_USER } from '../graphql/User/mutations';
-import { GET_USER_PROFILE } from '../graphql/User/queries';
+import { ApolloError } from '@apollo/client';
+import { Box, Flex, Stack } from '@chakra-ui/react';
+import { IUserProfile } from '../../types/types';
+import HomeWrapper from '../components/Home/HomeWrapper';
 import Loader from '../components/Loader';
 import Login from './Login';
-import HomeWrapper from '../components/Home/HomeWrapper';
-import { IUserProfile } from '../../types/types';
-import { Box, Flex } from '@chakra-ui/react';
 
 interface IHome {
   data?: IUserProfile;
@@ -15,7 +12,21 @@ interface IHome {
 }
 
 const Home: React.FC<IHome> = ({ data, loading, error }) => {
-  if (error) return <div>An Error occurred</div>;
+  if (error)
+    return (
+      <Stack
+        justifyContent='center'
+        alignItems='center'
+        height='90vh'
+        width='100%'
+        gap={2}
+        color='#5555'
+        fontSize='1.2rem'
+      >
+        <code>{error.message}</code>
+        <code>refresh to continue...</code>
+      </Stack>
+    );
 
   return (
     <Box background='white'>

@@ -93,8 +93,13 @@ const Register = () => {
       alignItems='center'
       gap={8}
     >
-      <Stack justifyContent='center' alignItems='center' width='30%' gap={6}>
-        <Heading opacity={0.8}>Register</Heading>
+      <Stack
+        justifyContent='center'
+        alignItems='center'
+        width={{ lg: '30%', base: '90%' }}
+        gap={6}
+      >
+        <Heading color='brand.100'>Register</Heading>
         <form onSubmit={handleRegisterForm}>
           <Input
             type='name'
@@ -103,6 +108,8 @@ const Register = () => {
             marginY={2}
             width='100%'
             border='2px solid #5555'
+            color='#333333a7'
+            _placeholder={{ color: '#5555' }}
             paddingY={6}
             fontSize='1.1em'
             value={registerData.name}
@@ -115,6 +122,8 @@ const Register = () => {
             marginY={2}
             width='100%'
             border='2px solid #5555'
+            color='#333333a7'
+            _placeholder={{ color: '#5555' }}
             paddingY={6}
             fontSize='1.1em'
             value={registerData.username}
@@ -127,6 +136,8 @@ const Register = () => {
             marginY={2}
             width='100%'
             border='2px solid #5555'
+            color='#333333a7'
+            _placeholder={{ color: '#5555' }}
             paddingY={6}
             fontSize='1.1em'
             value={registerData.email}
@@ -139,6 +150,8 @@ const Register = () => {
             marginY={2}
             width='100%'
             border='2px solid #5555'
+            color='#333333a7'
+            _placeholder={{ color: '#5555' }}
             paddingY={6}
             fontSize='1.1em'
             value={registerData.password}
@@ -161,10 +174,10 @@ const Register = () => {
             <Text
               color='blue.700'
               textDecoration='underline'
-              fontSize='1.2rem'
+              fontSize='1rem'
               textAlign='center'
             >
-              Login here.
+              Login here
             </Text>
           </Link>
         </form>
