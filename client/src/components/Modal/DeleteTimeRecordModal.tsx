@@ -73,14 +73,14 @@ const DeleteTimeRecordModal: React.FC<DeleteTimeRecordModalProps> = ({
       <Modal onClose={onClose} isOpen={isOpen} isCentered>
         <ModalCloseButton />
         <ModalOverlay />
-        <ModalContent mx={1}>
+        <ModalContent mx={1} bg='white' color='black'>
           <ModalHeader>Delete Record</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Text>Do you want to delete the record "{recordName}"?</Text>
           </ModalBody>
           <ModalFooter>
-            <Button onClick={deleteTimeRecord} colorScheme='red'>
+            <Button onClick={deleteTimeRecord} bg='#fabb18'>
               Delete
             </Button>
           </ModalFooter>

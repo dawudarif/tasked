@@ -19,7 +19,7 @@ const HelpModal: React.FC<HelpModalProps> = ({ isOpen, onClose }) => {
     <Modal onClose={onClose} isOpen={isOpen} isCentered>
       <ModalCloseButton />
       <ModalOverlay />
-      <ModalContent mx={2}>
+      <ModalContent mx={2} bg='white' color='black'>
         <ModalHeader>Help</ModalHeader>
         <ModalCloseButton />
         <ModalBody>

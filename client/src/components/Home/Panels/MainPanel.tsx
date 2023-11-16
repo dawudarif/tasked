@@ -25,6 +25,7 @@ const MainPanel: React.FC = () => {
       position='relative'
       display={{ base: displayMain ? 'flex' : 'none', md: 'flex' }}
       flexDirection='column'
+      color='black'
     >
       <Text
         position='absolute'

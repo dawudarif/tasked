@@ -34,6 +34,7 @@ const TaskItem: React.FC<TaskItemProps> = ({
     >
       <Checkbox
         isChecked={task.completed}
+        borderColor='#5555'
         size='lg'
         iconSize='2rem'
         onChange={() => updateCheckbox(task.completed === true ? false : true)}

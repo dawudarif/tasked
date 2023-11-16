@@ -85,7 +85,7 @@ const CreateCollectionModal: React.FC<CreateCollectionModalProps> = ({
     <>
       <Modal size='2xl' isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent mx={1}>
+        <ModalContent mx={1} bg='white' color='black'>
           <ModalHeader>Create Collection</ModalHeader>
           <ModalCloseButton />
           <ModalBody>

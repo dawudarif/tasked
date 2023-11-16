@@ -81,13 +81,23 @@ const Timesheets: React.FC = () => {
           <Button onClick={handleStart} bg='#fabb18'>
             <HiPlay size={20} />
           </Button>
-          <Button onClick={handlePause}>
+          <Button
+            onClick={handlePause}
+            bg='blackAlpha.600'
+            _hover={{ bg: 'blackAlpha.400' }}
+          >
             <BsFillPauseFill size={30} />
           </Button>
           <Button onClick={handleReset} bg='#fabb18'>
             <MdOutlineRestartAlt size={30} />
           </Button>
-          <Button onClick={() => setIsOpen(true)}>Add a new Record</Button>
+          <Button
+            onClick={() => setIsOpen(true)}
+            bg='blackAlpha.600'
+            _hover={{ bg: 'blackAlpha.400' }}
+          >
+            Add a new Record
+          </Button>
         </Flex>
       </Stack>
       <Flex justifyContent='center' alignItems='center' width='100%'>

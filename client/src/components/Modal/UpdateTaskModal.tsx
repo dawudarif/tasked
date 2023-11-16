@@ -144,7 +144,7 @@ const UpdateTaskModal: React.FC<UpdateTaskModalProps> = ({
     <>
       <Modal onClose={onClose} size={'2xl'} isOpen={isOpen}>
         <ModalOverlay />
-        <ModalContent mx={1}>
+        <ModalContent mx={1} bg='white' color='black'>
           <ModalHeader>Update Task</ModalHeader>
           <ModalCloseButton />
           <ModalBody>

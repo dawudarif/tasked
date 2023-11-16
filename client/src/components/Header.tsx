@@ -101,7 +101,7 @@ const Header: React.FC<IHeader> = ({ name, email }) => {
               {userName === undefined ? '?' : userName}
             </Button>
           </PopoverTrigger>
-          <PopoverContent>
+          <PopoverContent bg='white' color='black'>
             <PopoverBody>
               <Stack>
                 <Box>

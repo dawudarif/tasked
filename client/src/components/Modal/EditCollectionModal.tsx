@@ -140,7 +140,7 @@ const EditCollectionModal: React.FC<EditCollectionModalProps> = ({
     <>
       <Modal size='2xl' isOpen={isOpen} onClose={onClose}>
         <ModalOverlay bgColor='blackAlpha.100' />
-        <ModalContent mx={1}>
+        <ModalContent mx={1} bg='white' color='black'>
           <ModalHeader>Edit Collection</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
