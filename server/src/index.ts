@@ -12,7 +12,7 @@ dotenv.config();
 import { GraphQLContext } from './types/types';
 import { PrismaClient } from '@prisma/client';
 
-const PORT = process.env.PORT || 4001;
+const PORT = process.env.PORT || 4000;
 const prisma = new PrismaClient();
 const app = express();
 const httpServer = http.createServer(app);
@@ -29,7 +29,7 @@ const main = async () => {
   app.use(
     '/graphql',
     cors({
-      origin: ['http://localhost:3001'],
+      origin: ['http://localhost:3000'],
       credentials: true,
     }),
     json(),
