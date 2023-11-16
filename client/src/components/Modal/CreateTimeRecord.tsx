@@ -130,7 +130,11 @@ const CreateTimeRecordModal: React.FC<CreateTimeRecordModalProps> = ({
                 value={hours}
               >
                 {[...Array(25).keys()].map((i) => (
-                  <option key={i} value={i}>
+                  <option
+                    key={i}
+                    value={i}
+                    style={{ color: 'black', background: 'white' }}
+                  >
                     {i < 10 ? '0' + i : i}
                   </option>
                 ))}
@@ -149,7 +153,11 @@ const CreateTimeRecordModal: React.FC<CreateTimeRecordModalProps> = ({
                 borderColor='#5555'
               >
                 {[...Array(60).keys()].map((i) => (
-                  <option key={i} value={i}>
+                  <option
+                    key={i}
+                    value={i}
+                    style={{ color: 'black', background: 'white' }}
+                  >
                     {i < 10 ? '0' + i : i}
                   </option>
                 ))}
@@ -168,7 +176,11 @@ const CreateTimeRecordModal: React.FC<CreateTimeRecordModalProps> = ({
                 borderColor='#5555'
               >
                 {[...Array(60).keys()].map((i) => (
-                  <option key={i} value={i}>
+                  <option
+                    key={i}
+                    value={i}
+                    style={{ color: 'black', background: 'white' }}
+                  >
                     {i < 10 ? '0' + i : i}
                   </option>
                 ))}
